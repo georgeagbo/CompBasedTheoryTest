@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
-                <div class="card-body">
+                <div class="card-body" style="background: #d867c6;">
                     @if (session('status'))
                     <div class="alert alert-success" role="alert">
                         {{ session('status') }}
@@ -15,45 +15,58 @@
                     @endif
 
                     {{ __('You are logged in!') }}
-                </div>
-
-                <div class="container-contact100">
+                    <div class="container-contact100">
                     <div class="wrap-contact100">
-                        <form class="contact100-form validate-form">
+                        <form class="contact100-form validate-form" action="/store" method="post">
+                            @csrf
                             <span class="contact100-form-title">
                                 Upload Questions
                             </span>
+                            <div class="container">
+                                <table id="iq">
+                                    <label class="label-input100" for="message">Enter Question</label>
+                                    <tr>
+                                        <td>
+                                            <div class="wrap-input100 validate-input">
 
-                            <label class="label-input100" for="message">Enter Question</label>
-                            <div class="wrap-input100 validate-input">
-                                <textarea id="message" class="input100" name="question" placeholder="Please Enter Your Question"></textarea>
-                                <span class="focus-input100"></span>
-                            </div>
+                                                <textarea id="message" class="input100" name="question" placeholder="Please Enter Your Question"></textarea>
+                                                <span class="focus-input100"></span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><label class="label-input100" for="first-name">Part Answer*</label></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-7">
+                                                    <div class="wrap-input100 rs validate-input">
+                                                        <input id="first-name" class="input100" type="text" name="answer" placeholder="Part Answer">
+                                                        <span class="focus-input100"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="wrap-input100 rs validate-input">
+                                                        <input class="input100" type="text" name="mark" placeholder="Marks">
+                                                        <span class="focus-input100"></span>
+                                                    </div>
+                                                </div>
 
+                                            </div>
 
-                            <label class="label-input100" for="first-name">Part Question*</label>
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <div class="wrap-input100 rs validate-input">
-                                        <input id="first-name" class="input100" type="text" name="first-name" placeholder="Part Question">
-                                        <span class="focus-input100"></span>
-                                    </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <input type="button" class="btn btn-sm" style="background: #d867c6;" id="add" value="Add more Answers">
+
+                                <label class="label-input100" for="email" style="margin-top: 4%;">Marks obtainable</label>
+
+                                <div class="wrap-input100 validate-input">
+                                    <input id="email" class="input100" type="text" name="mark_obtainable" placeholder="Marks Obtainable">
+                                    <span class="focus-input100"></span>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="wrap-input100 rs validate-input">
-                                        <input class="input100" type="text" name="mark" placeholder="Marks">
-                                        <span class="focus-input100"></span>
-                                    </div>
-                                </div>
                             </div>
-                            <button class="btn btn-success btn-sm">Add more Answers</button>
-
-                            <label class="label-input100" for="email" style="margin-top: 4%;">Marks obtainable</label>
-                            <div class="wrap-input100 validate-input">
-                                <input id="email" class="input100" type="text" name="mark_obtainable" placeholder="Marks Obtainable">
-                                <span class="focus-input100"></span>
-                            </div>
-
                             <div class="container-contact100-form-btn">
                                 <button class="contact100-form-btn">
                                     <span>
@@ -65,6 +78,9 @@
                         </form>
                     </div>
                 </div>
+                </div>
+
+                
 
 
 
@@ -99,6 +115,25 @@
                     gtag('config', 'UA-23581568-13');
                 </script>
 
+                <script>
+                    $(document).ready(function() {
+                        var wrapper = $("#iq");
+                        var i = "";
+
+                        $("#add").click(function() {
+
+                            $(wrapper).append('<div><td><label class="label-input100" for="first-name">Part Answer*</label></td><tr><td><div class="row"><div class="col-md-7"><div class="wrap-input100 rs validate-input"><input id="ans" class="input100" type="text" name="answer' + i++ + '" placeholder="Part Answer"><span class="focus-input100"></span></div></div><div class="col-md-4"><div class="wrap-input100 rs validate-input"><input class="input100" type="text" name="mark" placeholder="Marks"><span class="focus-input100"></span></div></div><div class="col-md-1"><input type="button" class="btn btn-danger btn-sm remove_field" value="Remove"></div></div></div></td></tr></div>')
+                            var name = $("#ans").attr('name');
+
+                        });
+                        $(wrapper).on("click", ".remove_field", function(e) {
+                            e.preventDefault();
+                            $(this).parent('div').parent('div').remove();
+                            i--;
+                        });
+
+                    });
+                </script>
             </div>
         </div>
     </div>

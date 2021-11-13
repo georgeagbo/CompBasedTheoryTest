@@ -39,7 +39,7 @@
         }
 
         body {
-            margin: 0
+            margin: -18px;
         }
 
         a {
