@@ -415,16 +415,19 @@
                 color: rgba(107, 114, 128, var(--tw-text-opacity))
             }
         }
-    </style>
 
-    <style>
         body {
+
             font-family: 'Nunito', sans-serif;
+            overflow-x: hidden;
         }
     </style>
 </head>
 
 <body class="antialiased">
+    <style>
+        body
+    </style>
     <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
         @if (Route::has('login'))
         <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
@@ -440,7 +443,7 @@
         </div>
         @endif
 
-        <div class="container-contact100">
+        <div class="container-contact100" style="margin-top: 4%;">
             <div class="wrap-contact100">
                 <form class="contact100-form validate-form">
                     <span class="contact100-form-title">
