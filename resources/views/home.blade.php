@@ -7,15 +7,15 @@
             <div class="card">
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
-                <div class="card-body" style="background: #d867c6;">
+                <div class="card-body">
                     @if (session('status'))
                     <div class="alert alert-success" role="alert">
                         {{ session('status') }}
                     </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
-                    <div class="container-contact100">
+                
+                    <div class="container-contact100"  style="margin-top: -35px;">
                     <div class="wrap-contact100">
                         <form class="contact100-form validate-form" action="/store" method="post">
                             @csrf
@@ -35,7 +35,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><label class="label-input100" for="first-name">Part Answer*</label></td>
+                                        <td><label class="label-input100" for="answer">Part Answer*</label></td>
                                     </tr>
                                     <tr>
                                         <td>
@@ -48,7 +48,7 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="wrap-input100 rs validate-input">
-                                                        <input class="input100" type="text" name="mark" placeholder="Marks">
+                                                        <input class="input100" type="text" name="mark" placeholder="E.g 0.5">
                                                         <span class="focus-input100"></span>
                                                     </div>
                                                 </div>
@@ -119,16 +119,18 @@
                     $(document).ready(function() {
                         var wrapper = $("#iq");
                         var i = "";
+                        var j = "";
 
                         $("#add").click(function() {
 
-                            $(wrapper).append('<div><td><label class="label-input100" for="first-name">Part Answer*</label></td><tr><td><div class="row"><div class="col-md-7"><div class="wrap-input100 rs validate-input"><input id="ans" class="input100" type="text" name="answer' + i++ + '" placeholder="Part Answer"><span class="focus-input100"></span></div></div><div class="col-md-4"><div class="wrap-input100 rs validate-input"><input class="input100" type="text" name="mark" placeholder="Marks"><span class="focus-input100"></span></div></div><div class="col-md-1"><input type="button" class="btn btn-danger btn-sm remove_field" value="Remove"></div></div></div></td></tr></div>')
+                            $(wrapper).append('<div><td><label class="label-input100" for="first-name">Part Answer*</label></td><tr><td><div class="row"><div class="col-md-7"><div class="wrap-input100 rs validate-input"><input id="ans" class="input100" type="text" name="answer' + i++ + '" placeholder="Part Answer"><span class="focus-input100"></span></div></div><div class="col-md-4"><div class="wrap-input100 rs validate-input"><input id="mark"class="input100" type="text" name="mark' + j++ + '" placeholder="E.g 0.5"><span class="focus-input100"></span></div></div><div class="col-md-1"><input type="button" class="btn btn-danger btn-sm remove_field" value="Remove"></div></div></div></td></tr></div>')
                             var name = $("#ans").attr('name');
+                            var mark= $("#mark").attr('mark');
 
                         });
                         $(wrapper).on("click", ".remove_field", function(e) {
                             e.preventDefault();
-                            $(this).parent('div').parent('div').remove();
+                            $(this).parent('div').parent('div').parent('div').remove();
                             i--;
                         });
 
