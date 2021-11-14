@@ -1,0 +1,37 @@
+<?php
+
+namespace App\TheoryMarker;
+
+use App\Models\Question;
+
+class QuestionService
+{
+    public function addQuestion(array $questionInfo)
+    {
+
+        //extract answers and store them in a json fields
+
+        $question = new Question();
+
+        $question->question = $questionInfo['question'];
+        $question->marks_obtainable = $questionInfo['marks_obtainable'];
+        $answers = [];
+
+        foreach ($questionInfo as $key => $value) {
+
+            $inputParts = explode('_', $key);
+
+            if ($inputParts[0] === "answer") {
+                $answers[$inputParts[1]]['answer'] = $value;
+            }
+            if
+            ($inputParts[0] === "mark") {
+                $answers[$inputParts[1]]['mark'] = $value;
+            }
+        }
+
+        $question->answers = json_encode($answers);
+        $question->save();
+        return $question;
+    }
+}
