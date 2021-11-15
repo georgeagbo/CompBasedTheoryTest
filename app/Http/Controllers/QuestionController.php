@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class QuestionController extends Controller
 {
@@ -14,7 +15,17 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        return view('welcome');
+        
+        $questions = Question::select('id','question')->paginate(1);
+        // $questions_id = Question::select('id')->paginate(1);
+        // dd($questions_id);
+
+        // $questions = Question::paginate(1);
+        // dd($questions);
+        return view('welcome')
+        ->with('questions', $questions);
+        
+        
     }
 
     /**
@@ -35,7 +46,7 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      
     }
 
     /**

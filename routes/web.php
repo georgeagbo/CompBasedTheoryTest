@@ -16,6 +16,12 @@ use App\Http\Controllers\QuestionController;
 
 Route::get('/', [App\Http\Controllers\QuestionController::class, 'index'])->name('question');
 
+Route::group(['excluded_middleware' => ['csrf']], function () {
+    Route::post('/store/answer', 'App\Http\Controllers\SubmissionController@store');
+});
+
+
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

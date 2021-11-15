@@ -7,6 +7,8 @@
 
     <title>Laravel</title>
 
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
     <link rel="icon" type="image/png" href="images/icons/favicon.ico" />
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
@@ -27,6 +29,12 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="css/util.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -445,25 +453,34 @@
 
         <div class="container-contact100" style="margin-top: 4%;">
             <div class="wrap-contact100">
-                <form class="contact100-form validate-form">
+                <form class="contact100-form validate-form" id="form">
+                    @csrf
                     <span class="contact100-form-title">
                         Lets GO!!
                     </span>
 
                     <label class="label-input100" for="message">Question No.1</label>
                     <div class="wrap-input100 validate-input">
-                        <textarea id="message" class="input100" name="question"></textarea>
+                        @foreach($questions as $question)
+                        <textarea id="question" class="input100" name="question" data-id="{{$question->id}}">{{$question}}</textarea>
                         <span class="focus-input100"></span>
+                        @endforeach
                     </div>
+
+                    @if ($questions->hasMorePages())
+                    <li style="margin-left: 87%;" class="btn btn-primary"><a href="{{ $questions->nextPageUrl() }}" rel="next">Next →</a></li>
+                    @else
+                    <li class="disabled btn btn-primary" style="margin-left: 87%;"><span>Next →</span></li>
+                    @endif
 
                     <label class="label-input100" for="email" style="margin-top: 4%;">Answer</label>
                     <div class="wrap-input100 validate-input">
-                        <input id="email" class="input100" type="text" name="answer" placeholder="Enter your answer">
+                        <textarea id="answer" class="input100" name="answer" placeholder="Kindly Enter Your Answer Here"></textarea>
                         <span class="focus-input100"></span>
                     </div>
-
+                    <div id="question_answer"></div>
                     <div class="container-contact100-form-btn">
-                        <button class="contact100-form-btn">
+                        <button class="contact100-form-btn" id="submit">
                             <span>
                                 Submit Answer
                                 <i class="zmdi zmdi-arrow-right m-l-8"></i>
@@ -475,6 +492,32 @@
         </div>
     </div>
 
+    <script>
+        $(document).ready(function() {
+
+            $("#submit").click(function(e) {
+                event.preventDefault();
+                var question_id = $("#question").data("id");
+                var answer = $("#answer").val();
+
+                $.ajax({
+                    type: "POST",
+                    data: {
+                        "_token": $('meta[name="csrf-token"]').attr('content'),
+                        "question_id": $("#question").data("id"),
+                        "questionAnswer": answer
+
+                    },
+                    url: "/store/answer",
+                    success: function(data) {
+                        $("#question_answer").html(data)
+                        //window.location.href = data;
+                    }
+                });
+            });
+
+        });
+    </script>
 </body>
 
 </html>

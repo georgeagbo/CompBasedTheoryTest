@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Submission;
+use App\Models\Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
-class SubmissionController extends Controller
+class QuestionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,13 @@ class SubmissionController extends Controller
      */
     public function index()
     {
-        //
+        
+        $questions = DB::table('questions')->pluck('question');
+        $items = array();
+        foreach($questions as $question){
+            $items[] = $question;
+        }
+        return view('welcome')->with('items', $items);
     }
 
     /**
@@ -35,16 +42,16 @@ class SubmissionController extends Controller
      */
     public function store(Request $request)
     {
-        return ($request->question_id);
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Submission  $submission
+     * @param  \App\Models\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function show(Submission $submission)
+    public function show(Question $question)
     {
         //
     }
@@ -52,10 +59,10 @@ class SubmissionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Submission  $submission
+     * @param  \App\Models\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function edit(Submission $submission)
+    public function edit(Question $question)
     {
         //
     }
@@ -64,10 +71,10 @@ class SubmissionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Submission  $submission
+     * @param  \App\Models\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Submission $submission)
+    public function update(Request $request, Question $question)
     {
         //
     }
@@ -75,10 +82,10 @@ class SubmissionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Submission  $submission
+     * @param  \App\Models\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Submission $submission)
+    public function destroy(Question $question)
     {
         //
     }
