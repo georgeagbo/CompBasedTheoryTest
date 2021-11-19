@@ -462,7 +462,7 @@
                     <label class="label-input100" for="message">Question No.1</label>
                     <div class="wrap-input100 validate-input">
                         @foreach($questions as $question)
-                        <textarea id="question" class="input100" name="question" data-id="{{$question->id}}">{{$question}}</textarea>
+                        <textarea id="question" class="input100" name="question" data-id="{{$question->id}}">{{$question->question}}</textarea>
                         <span class="focus-input100"></span>
                         @endforeach
                     </div>

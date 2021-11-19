@@ -28,6 +28,26 @@
 
                                 </div>
                                 @endif
+                                <!-- Modal -->
+                                <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                                                <button type="button" id="closes" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are You Sure You Wish To Delete Answer
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-primary">Understood</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
 
                                 <div class="container">
@@ -91,7 +111,6 @@
 
 
 
-
                 <!--===============================================================================================-->
                 <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
                 <!--===============================================================================================-->
@@ -148,7 +167,7 @@
                                       </div>
                                     </div>
                                     <div class="col-md-1">
-                                      <input type="button" class="btn btn-danger btn-sm remove_field" value="Remove">
+                                      <input type="button" id="remove" class="btn btn-danger btn-sm remove_field" value="Remove">
                                     </div>
                                   </div>
                                 </td>
@@ -158,11 +177,13 @@
 
 
                         });
+
                         $(wrapper).on("click", ".remove_field", function(e) {
                             e.preventDefault();
                             $(this).parent('div').parent('div').parent('div').remove();
                             i--;
                         });
+
 
                     });
                 </script>
