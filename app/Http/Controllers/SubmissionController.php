@@ -35,7 +35,7 @@ class SubmissionController extends Controller
      */
     public function store(Request $request)
     {
-        return ($request->question_id);
+        return ($request->questionId);
     }
 
     /**

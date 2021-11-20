@@ -27,8 +27,9 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="css/util.css">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
+
+    <link href="{{ asset('/css/util.css') }}" rel="stylesheet">
+    <link href="{{ asset('/css/main.css') }}" rel="stylesheet">
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
@@ -453,36 +454,22 @@
 
         <div class="container-contact100" style="margin-top: 4%;">
             <div class="wrap-contact100">
-                <form class="contact100-form validate-form" id="form">
+                <form class="contact100-form validate-form" id="form" action="/update/question/{{$currentQuestion->id}}" method="POST">
                     @csrf
                     <span class="contact100-form-title">
                         Lets GO!!
                     </span>
 
-                    <label class="label-input100" for="message">Question No.1</label>
+                    <label class="label-input100" for="message">Edit Question</label>
                     <div class="wrap-input100 validate-input">
-                        @foreach($questions as $question)
-                        <textarea id="question" class="input100" name="question" data-id="{{$question->id}}">{{$question->question}}</textarea>
-                        <span class="focus-input100"></span>
-                        @endforeach
-                    </div>
-
-                    @if ($questions->hasMorePages())
-                    <li style="margin-left: 87%;" class="btn btn-primary"><a href="{{ $questions->nextPageUrl() }}" rel="next">Next →</a></li>
-                    @else
-                    <li class="disabled btn btn-primary" style="margin-left: 87%;"><span>Next →</span></li>
-                    @endif
-
-                    <label class="label-input100" for="email" style="margin-top: 4%;">Answer</label>
-                    <div class="wrap-input100 validate-input">
-                        <textarea id="answer" class="input100" name="answer" placeholder="Kindly Enter Your Answer Here"></textarea>
+                        <textarea id="question" class="input100" name="question">{{$currentQuestion->question}}</textarea>
                         <span class="focus-input100"></span>
                     </div>
-                    <div id="question_answer"></div>
+
                     <div class="container-contact100-form-btn">
                         <button class="contact100-form-btn" id="submit">
                             <span>
-                                Submit Answer
+                                Submit Question
                                 <i class="zmdi zmdi-arrow-right m-l-8"></i>
                             </span>
                         </button>
@@ -492,32 +479,7 @@
         </div>
     </div>
 
-    <script>
-        $(document).ready(function() {
 
-            $("#submit").click(function(e) {
-                event.preventDefault();
-                var questionId = $("#question").data("id");
-                var answer = $("#answer").val();
-
-                $.ajax({
-                    type: "POST",
-                    data: {
-                        "_token": $('meta[name="csrf-token"]').attr('content'),
-                        "questionId":questionId,
-                        "answer": answer
-
-                    },
-                    url: "/store/answer",
-                    success: function(data) {
-                        $("#question_answer").html(data)
-                        //window.location.href = data;
-                    }
-                });
-            });
-
-        });
-    </script>
 </body>
 
 </html>

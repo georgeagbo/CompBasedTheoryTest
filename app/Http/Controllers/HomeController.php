@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Exception;
+use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\Facades\View;
@@ -30,21 +31,32 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('admin/home');
+        $currentQuestion = Question::all();
+        return view('admin/home')
+            ->with('currentQuestion', $currentQuestion);
     }
 
     public function store(Request $request)
     {
         //dd($request->all());
         $formData = $request->all();
-        try{
+        try {
             (new QuestionService())->addQuestion($formData);
             Session::flash('status', 'Successfully added Question!');
-        }
-        catch(Exception $e){
-            $errors = new MessageBag(['error'=>$e->getMessage()]);
+        } catch (Exception $e) {
+            $errors = new MessageBag(['error' => $e->getMessage()]);
             return Redirect::back()->withErrors($errors);
         }
         return view('admin/home');
+    }
+
+    public function edit(int $question)
+    {
+        $currentQuestion = Question::find($question);
+        return view('Admin.editQuestion')
+            ->with('currentQuestion', $currentQuestion);
+    }
+    public function update(Request $request)
+    {
     }
 }
