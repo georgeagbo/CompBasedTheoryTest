@@ -15,17 +15,11 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        
-        $questions = Question::select('id','question')->paginate(1);
-        // $questions_id = Question::select('id')->paginate(1);
-        // dd($questions_id);
 
-        // $questions = Question::paginate(1);
-        // dd($questions);
+        $questions = Question::select('id', 'question')->paginate(1);
+
         return view('welcome')
-        ->with('questions', $questions);
-        
-        
+            ->with('questions', $questions);
     }
 
     /**
@@ -46,7 +40,6 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-      
     }
 
     /**
@@ -66,10 +59,6 @@ class QuestionController extends Controller
      * @param  \App\Models\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function edit(Question $question)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.

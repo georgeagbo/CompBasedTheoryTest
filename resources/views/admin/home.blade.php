@@ -3,6 +3,47 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">{{ __('Uploaded Questions') }}</div>
+
+                <div class="card-body">
+                    @if (session('status'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
+                    @endif
+
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Edit</th>
+                                <th scope="col">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($currentQuestion as $question)
+                            <tr>
+                                <td>{{$question->question}}</td>
+                                <td><a href="/edit/question/{{$question->id}}" class="btn btn-warning btn-sm">Edit</a></td>
+                                <td>
+                                    <form action="" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="submit" value="Delete" class="btn btn-danger btn-sm">
+                                    </form>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Dashboard') }}</div>
@@ -42,8 +83,8 @@
                                                 Are You Sure You Wish To Delete Answer
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary">Understood</button>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+                                                <button type="button" class="btn btn-primary btn-delete-input">YES</button>
                                             </div>
                                         </div>
                                     </div>
@@ -86,7 +127,7 @@
                                             </td>
                                         </tr>
                                     </table>
-                                    <input type="button" class="btn btn-sm" style="background: #d867c6;" id="add" value="Add more Answers">
+                                    <input type="button" class="btn btn-sm" style="background: #d867c6;" id="add-answer" value="Add more Answers">
 
                                     <label class="label-input100" for="marks_obtainable" style="margin-top: 4%;">Marks obtainable</label>
 
@@ -147,13 +188,13 @@
                         let wrapper = $("#iq");
                         let i = 0;
 
-                        $("#add").click(function() {
+                        $("#add-answer").click(function() {
                             i = i + 1;
                             $(wrapper).append(`
                             <div>
                               <tr>
                                 <td>
-                                  <div class="row">
+                                  <div class="row" id="input-box">
                                     <div class="col-md-7">
                                       <div class="wrap-input100 rs validate-input">
                                         <input id="answer_${i}" class="input100" type="text" name="answer_${i}" placeholder="Part Answer ${i+1}">
@@ -167,7 +208,7 @@
                                       </div>
                                     </div>
                                     <div class="col-md-1">
-                                      <input type="button" id="remove" class="btn btn-danger btn-sm remove_field" value="Remove">
+                                      <input type="button" id="remove" class="btn btn-danger btn-sm remove_field" value="Remove" data-toggle='modal' data-target='#staticBackdrop'>
                                     </div>
                                   </div>
                                 </td>
@@ -175,16 +216,14 @@
                             </div>
                             `);
 
-
-                        });
-
-                        $(wrapper).on("click", ".remove_field", function(e) {
-                            e.preventDefault();
-                            $(this).parent('div').parent('div').parent('div').remove();
-                            i--;
                         });
 
 
+                        $(".btn-delete-input").click(function() {
+
+                            $("#input-box").parent('div').remove();
+                            $('#staticBackdrop').modal('hide');
+                        });
                     });
                 </script>
             </div>
