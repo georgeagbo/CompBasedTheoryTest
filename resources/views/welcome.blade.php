@@ -458,20 +458,17 @@
                     <span class="contact100-form-title">
                         Lets GO!!
                     </span>
-
-                    <label class="label-input100" for="message">Question No.1</label>
+                    @foreach($questions as $question)
+                    <label class="label-input100" for="message">Question No: {{$currentPage}}</label>
                     <div class="wrap-input100 validate-input">
-                        @foreach($questions as $question)
                         <textarea id="question" class="input100" name="question" data-id="{{$question->id}}">{{$question->question}}</textarea>
                         <span class="focus-input100"></span>
-                        @endforeach
+                    </div>
+                    @endforeach
+                    <div style="margin-left: 30%;">
+                        {{ $questions->links() }}
                     </div>
 
-                    @if ($questions->hasMorePages())
-                    <li style="margin-left: 87%;" class="btn btn-primary"><a href="{{ $questions->nextPageUrl() }}" rel="next">Next →</a></li>
-                    @else
-                    <li class="disabled btn btn-primary" style="margin-left: 87%;"><span>Next →</span></li>
-                    @endif
 
                     <label class="label-input100" for="email" style="margin-top: 4%;">Answer</label>
                     <div class="wrap-input100 validate-input">
@@ -504,7 +501,7 @@
                     type: "POST",
                     data: {
                         "_token": $('meta[name="csrf-token"]').attr('content'),
-                        "questionId":questionId,
+                        "questionId": questionId,
                         "answer": answer
 
                     },

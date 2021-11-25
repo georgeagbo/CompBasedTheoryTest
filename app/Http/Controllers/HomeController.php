@@ -31,9 +31,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $currentQuestion = Question::all();
+        $questions = Question::all();
         return view('admin/home')
-            ->with('currentQuestion', $currentQuestion);
+            ->with('questions', $questions);
     }
 
     public function store(Request $request)
@@ -47,16 +47,36 @@ class HomeController extends Controller
             $errors = new MessageBag(['error' => $e->getMessage()]);
             return Redirect::back()->withErrors($errors);
         }
-        return view('admin/home');
+        return redirect('/home');
     }
 
     public function edit(int $question)
     {
         $currentQuestion = Question::find($question);
-        return view('Admin.editQuestion')
+
+        return view('Admin.edit-question')
             ->with('currentQuestion', $currentQuestion);
     }
-    public function update(Request $request)
+
+    public function update(Request $request, $id)
     {
+        $formData = $request->all();
+        $questionId = $id;
+        try {
+            (new QuestionService())->updateQuestion($formData, $questionId);
+            Session::flash('status', 'Successfully updated Question!');
+        } catch (Exception $e) {
+            $errors = new MessageBag(['error' => $e->getMessage()]);
+            return Redirect::back()->withErrors($errors);
+        }
+        return redirect('/home');
+    }
+
+    public function delete($id)
+    {
+        $question = Question::find($id);
+        $question->delete();
+        Session::flash('status', 'Successfully deleted Question!');
+        return redirect('/home');
     }
 }
