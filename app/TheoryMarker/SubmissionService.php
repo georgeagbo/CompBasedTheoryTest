@@ -10,7 +10,7 @@ class SubmissionService
     {
         //get question
         $question = Question::find($questionId);
-        $answers = $question->answers;
+        $answers = json_decode($question->answers);
         $marksObtained = 0;
 
         foreach ($answers as $partAnswer) {
@@ -18,7 +18,7 @@ class SubmissionService
             $partAnswerOptions = explode(';', $partAnswer->answer);
 
             foreach ($partAnswerOptions as $option) {
-                if (stristr($answer, $option)) {
+                if (stristr($answer, trim($option))) {
                     $marksObtained += $partAnswer->mark;
                     break;
                 }
@@ -28,4 +28,5 @@ class SubmissionService
         $marksObtained = $marksObtained > $question->marks_obtainable ? $question->marks_obtainable : $marksObtained;
         return $marksObtained;
     }
+
 }

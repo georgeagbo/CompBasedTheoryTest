@@ -47,7 +47,7 @@ class HomeController extends Controller
             $errors = new MessageBag(['error' => $e->getMessage()]);
             return Redirect::back()->withErrors($errors);
         }
-        return view('admin/home');
+        return Redirect::action([HomeController::class,'index']);
     }
 
     public function edit(int $question)

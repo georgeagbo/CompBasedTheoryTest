@@ -104,17 +104,18 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><label class="label-input100" for="answer">Answers*</label></td>
+                                            <td><label class="label-input100" for="answer">Answers*</label><span>seperate points with semicolon ';'</td>
+                                            
                                         </tr>
                                         <tr>
                                             <td>
                                                 <div class="row">
                                                     <div class="col-md-7">
                                                         <div class="wrap-input100 rs validate-input">
-                                                            <input id="answer_0" class="input100" type="text" name="answer_0" placeholder="Part Answer 1">
+                                                            <textarea tabs=2 id="answer_0" class="input100" type="text" name="answer_0" placeholder="Part Answer 1"></textarea>
                                                             <span class="focus-input100"></span>
                                                         </div>
-                                                    </div>
+</div>
                                                     <div class="col-md-4">
                                                         <div class="wrap-input100 rs validate-input">
                                                             <input class="input100" type="number" step="0.01" name="mark_0" placeholder="E.g 0.5">
