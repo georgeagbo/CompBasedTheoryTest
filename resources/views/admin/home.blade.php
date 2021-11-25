@@ -23,12 +23,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($currentQuestion as $question)
+                            @foreach($questions as $question)
                             <tr>
                                 <td>{{$question->question}}</td>
-                                <td><a href="/edit/question/{{$question->id}}" class="btn btn-warning btn-sm">Edit</a></td>
+                                <td><a href="/edit/question/{{$question->id}}" class="btn btn-light btn-sm">Edit</a></td>
                                 <td>
-                                    <form action="" method="post">
+                                    <form action="/question/delete/{{$question->id}}" method="post">
                                         @csrf
                                         @method('DELETE')
                                         <input type="submit" value="Delete" class="btn btn-danger btn-sm">
@@ -70,7 +70,7 @@
                                 </div>
                                 @endif
                                 <!-- Modal -->
-                                <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal fade" id="staticBackdrop" data-backdrop="true" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -98,7 +98,7 @@
                                             <td>
                                                 <div class="wrap-input100 validate-input">
 
-                                                    <textarea id="message" class="input100" name="question" placeholder="Please Enter Your Question"></textarea>
+                                                    <textarea id="message" cols="50" rows="5" name="question" placeholder="Please Enter Your Question" required></textarea>
                                                     <span class="focus-input100"></span>
                                                 </div>
                                             </td>
@@ -110,15 +110,15 @@
                                         <tr>
                                             <td>
                                                 <div class="row">
-                                                    <div class="col-md-7">
+                                                    <div class="col-md-9">
                                                         <div class="wrap-input100 rs validate-input">
-                                                            <textarea tabs=2 id="answer_0" class="input100" type="text" name="answer_0" placeholder="Part Answer 1"></textarea>
+                                                            <textarea id="answer_0" cols="35" rows="2" type="text" name="answer_0" placeholder="Part Answer 1" required></textarea>
                                                             <span class="focus-input100"></span>
                                                         </div>
-</div>
-                                                    <div class="col-md-4">
+                                                    </div>
+                                                    <div class="col-md-3">
                                                         <div class="wrap-input100 rs validate-input">
-                                                            <input class="input100" type="number" step="0.01" name="mark_0" placeholder="E.g 0.5">
+                                                            <input style="width:100%; height:50px" type="number" step="0.01" name="mark_0" placeholder="E.g 0.5" required>
                                                             <span class="focus-input100"></span>
                                                         </div>
                                                     </div>
@@ -128,12 +128,12 @@
                                             </td>
                                         </tr>
                                     </table>
-                                    <input type="button" class="btn btn-sm" style="background: #d867c6;" id="add-answer" value="Add more Answers">
+                                    <input type="button" class="btn btn-light btn-sm" id="add-answer" value="Add more answers" required>
 
                                     <label class="label-input100" for="marks_obtainable" style="margin-top: 4%;">Marks obtainable</label>
 
                                     <div class="wrap-input100 validate-input">
-                                        <input id="marks_obtainable" class="input100" type="number" name="marks_obtainable" placeholder="Marks Obtainable">
+                                        <input id="marks_obtainable" class="input100" type="number" name="marks_obtainable" placeholder="Marks Obtainable" required>
                                         <span class="focus-input100"></span>
                                     </div>
                                 </div>
@@ -188,7 +188,6 @@
                     $(document).ready(function() {
                         let wrapper = $("#iq");
                         let i = 0;
-
                         $("#add-answer").click(function() {
                             i = i + 1;
                             $(wrapper).append(`
@@ -196,20 +195,20 @@
                               <tr>
                                 <td>
                                   <div class="row" id="input-box">
-                                    <div class="col-md-7">
+                                    <div class="col-md-9">
                                       <div class="wrap-input100 rs validate-input">
-                                        <input id="answer_${i}" class="input100" type="text" name="answer_${i}" placeholder="Part Answer ${i+1}">
+                                        <textarea id="answer_${i}" type="text" name="answer_${i}" placeholder="Part Answer ${i+1}" cols="35" rows="2" class="answer" required></textarea>
                                         <span class="focus-input100"></span>
                                       </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-2">
                                       <div class="wrap-input100 rs validate-input">
-                                        <input id="mark_${i}" class="input100" type="number" step="0.01" name="mark_${i}" placeholder="E.g 0.5">
+                                        <input id="mark_${i}" type="number" step="0.01" name="mark_${i}" style="width:100%; height:50px" required>
                                         <span class="focus-input100"></span>
                                       </div>
                                     </div>
                                     <div class="col-md-1">
-                                      <input type="button" id="remove" class="btn btn-danger btn-sm remove_field" value="Remove" data-toggle='modal' data-target='#staticBackdrop'>
+                                      <input type="button" id="remove" class="btn btn-danger btn-sm remove_field" value="x">
                                     </div>
                                   </div>
                                 </td>
@@ -220,10 +219,24 @@
                         });
 
 
-                        $(".btn-delete-input").click(function() {
+                        $(".row").on("click", "#remove", function(e) {
+                            alert("here")
+                            console.log("here")
+                            console.log(e.target);
+                            $counter = i++;
+                            $inputValue = $("#answer_" + $counter).val();
 
-                            $("#input-box").parent('div').remove();
-                            $('#staticBackdrop').modal('hide');
+                            if (!$inputValue == "") {
+                                $(".remove_field").attr("data-toggle", "modal").attr("data-target", "#staticBackdrop");
+                                $("#staticBackdrop").on("click", ".btn-delete-input", function() {
+                                    $(this).parent('div').remove();
+                                    $("#staticBackdrop").modal('hide')
+                                })
+                            }else{
+
+                                $(this).parent('div').remove();
+                            }
+
                         });
                     });
                 </script>

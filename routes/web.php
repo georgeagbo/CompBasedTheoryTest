@@ -27,7 +27,5 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('/store', [App\Http\Controllers\HomeController::class, 'store'])->name('store');
 Route::get('/edit/question/{id}', [App\Http\Controllers\HomeController::class, 'edit'])->name('edit');
+Route::delete('/question/delete/{id}', [App\Http\Controllers\HomeController::class, 'delete'])->name('delete');
 Route::post('/update/question/{id}', 'App\Http\Controllers\HomeController@update');
-
-
-

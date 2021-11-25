@@ -3,6 +3,7 @@
 namespace App\TheoryMarker;
 
 use App\Models\Question;
+use Illuminate\Support\Facades\Validator;
 
 class QuestionService
 {
@@ -12,11 +13,23 @@ class QuestionService
         //extract answers and store them in a json fields
 
         $question = new Question();
+        $questionInfo = $questionInfo;
 
+        $this->uploadQuestion($questionInfo, $question);
+    }
+
+    public function updateQuestion(array $questionInfo, int $id)
+    {
+        $question = Question::find($id);
+        $questionInfo = $questionInfo;
+
+        $this->uploadQuestion($questionInfo, $question);
+    }
+    private function uploadQuestion(array $questionInfo, Question $question)
+    {
         $question->question = $questionInfo['question'];
         $question->marks_obtainable = $questionInfo['marks_obtainable'];
         $answers = [];
-
         foreach ($questionInfo as $key => $value) {
 
             $inputParts = explode('_', $key);
@@ -24,8 +37,7 @@ class QuestionService
             if ($inputParts[0] === "answer") {
                 $answers[$inputParts[1]]['answer'] = $value;
             }
-            if
-            ($inputParts[0] === "mark") {
+            if ($inputParts[0] === "mark") {
                 $answers[$inputParts[1]]['mark'] = $value;
             }
         }
