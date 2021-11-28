@@ -472,7 +472,7 @@
 
                     <label class="label-input100" for="email" style="margin-top: 4%;">Answer</label>
                     <div class="wrap-input100 validate-input">
-                        <textarea id="answer" class="input100" name="answer" placeholder="Kindly Enter Your Answer Here"></textarea>
+                        <textarea id="answer" class="input100" name="answer" placeholder="Enter Your Answer Here"></textarea>
                         <span class="focus-input100"></span>
                     </div>
                     <div id="question_answer"></div>
