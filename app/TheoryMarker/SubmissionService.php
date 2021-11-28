@@ -6,7 +6,7 @@ use App\Models\Question;
 
 class SubmissionService
 {
-    public function markQuestion(int $questionId, string $answer)
+    public function markQuestion(int $questionId, string $answer): array
     {
         //get question
         $question = Question::find($questionId);
@@ -26,7 +26,7 @@ class SubmissionService
         }
 
         $marksObtained = $marksObtained > $question->marks_obtainable ? $question->marks_obtainable : $marksObtained;
-        return $marksObtained;
+        return ['mark' => $marksObtained, 'total' => $question->marks_obtainable];
     }
 
 }
