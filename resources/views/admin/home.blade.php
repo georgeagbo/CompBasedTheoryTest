@@ -219,8 +219,7 @@
 
 
                         $(".row").on("click", "#remove", function(e) {
-                            alert("here")
-                            console.log("here")
+                            console.log(this)
                             console.log(e.target);
                             $counter = i++;
                             $inputValue = $("#answer_" + $counter).val();
