@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-4">
+        <div class="col-lg-4">
             <div class="card">
                 <div class="card-header">{{ __('Uploaded Questions') }}</div>
 
@@ -14,46 +14,36 @@
                     </div>
                     @endif
 
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Edit</th>
-                                <th scope="col">Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($questions as $question)
-                            <tr>
-                                <td>{{$question->question}}</td>
-                                <td><a href="/edit/question/{{$question->id}}" class="btn btn-light btn-sm">Edit</a></td>
-                                <td>
-                                    <form action="/question/delete/{{$question->id}}" method="post">
-                                        @csrf
-                                        @method('DELETE')
-                                        <input type="submit" value="Delete" class="btn btn-danger btn-sm">
-                                    </form>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                    <div class="grid">
+                        <div class="row">
+                            <div class='col-md-8'>Name</div>
+                            <div class='col-md-4'>Actions</div>
+                        </div>
+                        @foreach($questions as $question)
+                        <div class="row border border-bottom-0 border-left-0 border-right-0 pb-1 pt-1">
+                            <div class='col-md-7'>{{$question->question}}</div>
+                            <div class='col-xs-2'><a href="/edit/question/{{$question->id}}" class="btn btn-light btn-sm">Edit</a></div>
+                            <div class='col-xs-2'>
+                                <form action="/question/delete/{{$question->id}}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="submit" value="Delete" class="btn btn-danger btn-sm delete">
+                                </form>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
 
                 </div>
 
             </div>
         </div>
 
-        <div class="col-md-8">
+        <div class="col-lg-8">
             <div class="card">
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                    @endif
 
 
                     <div class="container-contact100" style="margin-top: -35px;">
@@ -92,26 +82,25 @@
 
 
                                 <div class="container">
-                                    <table id="iq">
+                                    <div id="iq">
                                         <label class="label-input100" for="message">Enter Question</label>
-                                        <tr>
-                                            <td>
-                                                <div class="wrap-input100 validate-input">
+                                        <div class="row">
+                                            <div class="wrap-input100 validate-input">
 
-                                                    <textarea id="message" cols="50" rows="5" name="question" placeholder="Please Enter Your Question" required></textarea>
-                                                    <span class="focus-input100"></span>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><label class="label-input100" for="answer">Answers*</label></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
+                                                <textarea id="message" cols="50" rows="5" name="question" placeholder="Please Enter Your Question" required></textarea>
+                                                <span class="focus-input100"></span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div><label class="label-input100" for="answer">Answers*</label><span>seperate points with semicolon ';'</div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div>
                                                 <div class="row">
                                                     <div class="col-md-9">
                                                         <div class="wrap-input100 rs validate-input">
-                                                            <textarea id="answer_0" cols="35" rows="2" type="text" name="answer_0" placeholder="Part Answer 1" required></textarea>
+                                                            <textarea id="answer_0" cols="35" rows="2" type="text" name="answer_0" placeholder="Part Answer" required></textarea>
                                                             <span class="focus-input100"></span>
                                                         </div>
                                                     </div>
@@ -124,9 +113,9 @@
 
                                                 </div>
 
-                                            </td>
-                                        </tr>
-                                    </table>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <input type="button" class="btn btn-light btn-sm" id="add-answer" value="Add more answers" required>
 
                                     <label class="label-input100" for="marks_obtainable" style="margin-top: 4%;">Marks obtainable</label>
@@ -151,25 +140,6 @@
 
 
 
-
-                <!--===============================================================================================-->
-                <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-                <!--===============================================================================================-->
-                <script src="vendor/animsition/js/animsition.min.js"></script>
-                <!--===============================================================================================-->
-                <script src="vendor/bootstrap/js/popper.js"></script>
-                <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-                <!--===============================================================================================-->
-                <script src="vendor/select2/select2.min.js"></script>
-                <!--===============================================================================================-->
-                <script src="vendor/daterangepicker/moment.min.js"></script>
-                <script src="vendor/daterangepicker/daterangepicker.js"></script>
-                <!--===============================================================================================-->
-                <script src="vendor/countdowntime/countdowntime.js"></script>
-                <!--===============================================================================================-->
-                <script src="js/main.js"></script>
-
-
                 <!-- Global site tag (gtag.js) - Google Analytics -->
                 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
                 <script>
@@ -185,18 +155,28 @@
 
                 <script>
                     $(document).ready(function() {
+
+                        $('.delete').on('click', function(e) {
+                            var answer = confirm('Do you want to delete?');
+                            if (answer) {
+                                //alert('Deleted');
+                            } else {
+                                e.preventDefault();
+                            }
+                        });
+
                         let wrapper = $("#iq");
                         let i = 0;
                         $("#add-answer").click(function() {
                             i = i + 1;
                             $(wrapper).append(`
                             <div>
-                              <tr>
-                                <td>
-                                  <div class="row" id="input-box">
+                              <div class="row">
+                                <div>
+                                  <div class="row" id="row_${i}">
                                     <div class="col-md-9">
                                       <div class="wrap-input100 rs validate-input">
-                                        <textarea id="answer_${i}" type="text" name="answer_${i}" placeholder="Part Answer ${i+1}" cols="35" rows="2" class="answer" required></textarea>
+                                        <textarea id="answer_${i}" type="text" name="answer_${i}" placeholder="Part Answer" cols="35" rows="2" class="answer" required></textarea>
                                         <span class="focus-input100"></span>
                                       </div>
                                     </div>
@@ -207,32 +187,38 @@
                                       </div>
                                     </div>
                                     <div class="col-md-1">
-                                      <input type="button" id="remove" class="btn btn-danger btn-sm remove_field" value="x">
+                                      <input type="button" id="remove_${i}" class="btn btn-danger btn-sm remove_field" value="x">
                                     </div>
                                   </div>
-                                </td>
-                              </tr>
+                                </div>
+                              </div>
                             </div>
                             `);
 
                         });
 
 
-                        $(".row").on("click", "#remove", function(e) {
-                            console.log(this)
-                            console.log(e.target);
-                            $counter = i++;
-                            $inputValue = $("#answer_" + $counter).val();
+                        $(".row").on("click", ".remove_field", function(e) {
+                            const id = e.target.id;
+                            const rowId = id.substring(id.indexOf("_"));
+                            console.log(rowId);
 
-                            if (!$inputValue == "") {
-                                $(".remove_field").attr("data-toggle", "modal").attr("data-target", "#staticBackdrop");
+                            $inputValue = $(`#answer${rowId}`).val();
+
+
+
+                            if ($inputValue !== "") {
+                                console.log(this)
+                                //$(this).attr("data-toggle", "modal").attr("data-target", "#staticBackdrop");
+                                $("#staticBackdrop").modal('show')
+
                                 $("#staticBackdrop").on("click", ".btn-delete-input", function() {
-                                    $(this).parent('div').remove();
+                                    $(`#row${rowId}`).remove();
                                     $("#staticBackdrop").modal('hide')
                                 })
-                            }else{
+                            } else {
+                                $(`#row${rowId}`).remove();
 
-                                $(this).parent('div').remove();
                             }
 
                         });

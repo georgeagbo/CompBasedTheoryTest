@@ -34,7 +34,7 @@ class SubmissionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request):int
+    public function store(Request $request):array
     {
 
         $marksObtained = (new SubmissionService)->markQuestion($request->questionId, $request->answer);

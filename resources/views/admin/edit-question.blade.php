@@ -28,14 +28,15 @@
 
                                 </div>
                                 @endif
+
                                 <!-- Modal -->
-                                <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="divue">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
                                                 <button type="button" id="closes" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
+                                                    <span aria-hidden="divue">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
@@ -48,35 +49,36 @@
                                         </div>
                                     </div>
                                 </div>
+                                
                                 <div class="container">
-                                    <table id="iq">
+                                    <div id="iq">
                                         <label class="label-input100" for="message">Enter Question</label>
-                                        <tr>
-                                            <td>
+                                        <div>
+                                            <div>
                                                 <div class="wrap-input100 validate-input">
 
                                                     <textarea id="message" class="input100" name="question" placeholder="Please Enter Your Question" value="John" minlength="3" required>{{$currentQuestion->question}}</textarea>
                                                     <span class="focus-input100"></span>
                                                 </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><label class="label-input100" for="answer">Answers*</label></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <?php
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div><label class="label-input100" for="answer">Answers*</label></div>
+                                        </div>
+                                        <?php
                                                 $answers = $currentQuestion->answers;
                                                 $json_answers = json_decode($answers);
-
                                                 ?>
-                                                @foreach($json_answers as $answer)
-                                                <div class="row">
+                                                @foreach($json_answers as $key => $answer)
+                                        <div class="row">
+                                            <div>
+                                               
+                                                <div class="row" id="row_{{$key}}">
                                                     <div class="col-md-9">
 
                                                         <div class="wrap-input100 rs validate-input">
 
-                                                            <textarea id="answer_0" cols="35" rows="2" type="text" name="answer_0" placeholder="Part Answer 1" value="John" minlength="3" required>{{$answer->answer}}</textarea>
+                                                            <textarea id="answer_{{$key}}" cols="35" rows="2" type="text" name="answer_{{$key}}" value="John" minlength="3" required>{{$answer->answer}}</textarea>
 
                                                             <span class="focus-input100"></span>
 
@@ -84,22 +86,28 @@
 
                                                     </div>
 
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-2">
                                                         <div class="wrap-input100 rs validate-input">
-                                                            <input style="width:100%; height:50px" type="number" step="0.01" name="mark_0" placeholder="{{$answer->mark}}" value="John" minlength="3" required>
+                                                            <input style="width:100%; height:50px" type="number" step="0.01" name="mark_{{$key}}" placeholder="{{$answer->mark}}" value="{{$answer->mark}}" minlength="3" required>
                                                             <span class="focus-input100"></span>
                                                         </div>
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <input type="button" id="remove_{{$key}}" class="btn btn-danger btn-sm remove_field" value="x">
                                                     </div>
                                                 </div>
-                                                @endforeach
-                                            </td>
-                                        </tr>
-                                    </table>
+                                            </div>
+                                        </div>
+                                        @endforeach
+
+                                    </div>
+                                    <input type="button" class="btn btn-light btn-sm" id="add-answer" value="Add more answers" required>
+
 
                                     <label class="label-input100" for="marks_obtainable" style="margin-top: 4%;">Marks obtainable</label>
 
                                     <div class="wrap-input100 validate-input">
-                                        <input id="marks_obtainable" class="input100" type="number" name="marks_obtainable" placeholder="Marks Obtainable" value="John" minlength="3" required>
+                                        <input id="marks_obtainable" class="input100" type="number" name="marks_obtainable" placeholder="Marks Obtainable" value="{{$currentQuestion->marks_obtainable}}" minlength="3" required>
                                         <span class="focus-input100"></span>
                                     </div>
                                 </div>
@@ -119,13 +127,61 @@
                 <script>
                     $(document).ready(function() {
                         let wrapper = $("#iq");
-                        let i = 0;
+                        let i = parseInt("{{count($json_answers ?? [])}}")
+                        $("#add-answer").click(function() {
+                            i = i + 1;
+                            $(wrapper).append(`
+                            <div>
+                              <div class="row">
+                                <div>
+                                  <div class="row" id="row_${i}">
+                                    <div class="col-md-9">
+                                      <div class="wrap-input100 rs validate-input">
+                                        <textarea id="answer_${i}" type="text" name="answer_${i}" placeholder="Part Answer" cols="35" rows="2" class="answer" required></textarea>
+                                        <span class="focus-input100"></span>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                      <div class="wrap-input100 rs validate-input">
+                                        <input id="mark_${i}" type="number" step="0.01" name="mark_${i}" style="width:100%; height:50px" required>
+                                        <span class="focus-input100"></span>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                      <input type="button" id="remove_${i}" class="btn btn-danger btn-sm remove_field" value="x">
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            `);
+
+                        });
 
 
-                        $(".btn-delete-input").click(function() {
+                        $(".row").on("click", ".remove_field", function(e) {
+                            const id = e.target.id;
+                            const rowId = id.substring(id.indexOf("_"));
+                            console.log(rowId);
 
-                            $("#input-box").parent('div').remove();
-                            $('#staticBackdrop').modal('hide');
+                            $inputValue = $(`#answer${rowId}`).val();
+
+
+
+                            if ($inputValue !== "") {
+                                console.log(this)
+                                //$(this).attr("data-toggle", "modal").attr("data-target", "#staticBackdrop");
+                                $("#staticBackdrop").modal('show')
+
+                                $("#staticBackdrop").on("click", ".btn-delete-input", function() {
+                                    $(`#row${rowId}`).remove();
+                                    $("#staticBackdrop").modal('hide')
+                                })
+                            } else {
+                                $(`#row${rowId}`).remove();
+
+                            }
+
                         });
                     });
                 </script>
