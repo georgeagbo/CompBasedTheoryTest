@@ -16,7 +16,7 @@
 
                     <div class="grid">
                         <div class="row">
-                            <div class='col-md-8'>Name</div>
+                            <div class='col-md-8'>Questions</div>
                             <div class='col-md-4'>Actions</div>
                         </div>
                         @foreach($questions as $question)
