@@ -73,7 +73,7 @@
                 <a class="navbar-brand" href="{{ url('/students') }}">
                     <h6 class="text-info">Create Student</h6>
                 </a>
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="/results">
                     <h6 class="text-info">View Results</h6>
                 </a>
                 @endif
@@ -82,10 +82,10 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <h5 class="text-dark">Student</h5>
                 </a>
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="/students/{{auth()->user()->id}}/result">
                     <h6 class="text-info">View Result</h6>
                 </a>
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="/students/{{auth()->user()->id}}/test">
                     <h6 class="text-info">Take A Test</h6>
                 </a>
                 @endif

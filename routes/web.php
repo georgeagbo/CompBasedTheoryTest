@@ -14,7 +14,9 @@ use App\Http\Controllers\QuestionController;
 |
 */
 
-Route::get('/', [App\Http\Controllers\QuestionController::class, 'index'])->name('question');
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Route::group(['excluded_middleware' => ['csrf']], function () {
     Route::post('/store/answer', 'App\Http\Controllers\SubmissionController@store');
@@ -34,6 +36,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/lecturers', [App\Http\Controllers\HomeController::class, 'createLecturer'])->name('createLecturer');
     Route::get('/students', [App\Http\Controllers\HomeController::class, 'createStudentForm'])->name('createStudentForm');
     Route::post('/students', [App\Http\Controllers\HomeController::class, 'createStudent'])->name('createStudent');
-    Route::post('/students/{id}/test', [App\Http\Controllers\QuestionController::class, 'index'])->name('question');
-
+    Route::get('/students/{id}/test', [App\Http\Controllers\QuestionController::class, 'index'])->name('index');
+    Route::get('/students/{id}/result', [App\Http\Controllers\ResultController::class, 'studentResult'])->name('result');
+    Route::resource('/results', App\Http\Controllers\ResultController::class);
 });

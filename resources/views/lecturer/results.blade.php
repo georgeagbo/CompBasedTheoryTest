@@ -11,7 +11,7 @@
 
     <link rel="icon" type="image/png" href="images/icons/favicon.ico" />
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="{{asset ('/vendor/bootstrap/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <!--===============================================================================================-->
@@ -27,8 +27,8 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="{{asset ('/css/util.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset ('/css/main.css')}}">
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
@@ -450,22 +450,31 @@
         <div class="container-contact100" style="margin-top: 4%;">
             <div class="wrap-contact100">
                 <div class="contact100-form validate-form" id="form">
-                    <span class="contact100-form-title">
-                        Smart Gap Computer Based Test Software!!
-                    </span>
-                    <div class="container-contact100-form-btn">
-                        <a href="/home">
-                            <button class="contact100-form-btn" id="submit">
-                                <span>
-                                    Get Started
-                                    <i class="zmdi zmdi-arrow-right m-l-8"></i>
-                                </span>
-                            </button>
-                    </div>
-                    </a>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Reg No</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($results as $result)
+                            <tr>
+                                <td>{{$result->id}}</td>
+                                <td>{{$result->reg_no}}</td>
+                                <td>{{$result->name}}</td>
+                                <td>{{$result->score}}</td>
+                            </tr>
+                            @empty
+                            <h6 class="text-primary">Result not uploaded yet</h6>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
 </body>
 
 </html>

@@ -3,6 +3,7 @@
 namespace App\TheoryMarker;
 
 use App\Models\Question;
+use App\Models\Result;
 use App\Models\Submission;
 use Doctrine\Inflector\Language;
 use Doctrine\Inflector\Inflector;
@@ -35,6 +36,11 @@ class SubmissionService
             'answer' => $answer,
             'marks' => $marksObtained
         ]);
+
+        $result = Result::where('user_id', auth()->user()->id)->first();
+        $result->score += $marksObtained;
+        $result->save();
+
         $marksObtained = $marksObtained > $question->marks_obtainable ? $question->marks_obtainable : $marksObtained;
 
         return ['mark' => $marksObtained, 'total' => $question->marks_obtainable];

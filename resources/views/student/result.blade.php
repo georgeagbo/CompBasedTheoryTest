@@ -451,21 +451,21 @@
             <div class="wrap-contact100">
                 <div class="contact100-form validate-form" id="form">
                     <span class="contact100-form-title">
-                        Smart Gap Computer Based Test Software!!
+                        Score!!
                     </span>
                     <div class="container-contact100-form-btn">
                         <a href="/home">
-                            <button class="contact100-form-btn" id="submit">
+                            <button class="rounded-circle bg-dark p-2" style="height: 100px; width: 100px; color: #fff; font-size: 45px;">
                                 <span>
-                                    Get Started
+                                {{$result->score}}
                                     <i class="zmdi zmdi-arrow-right m-l-8"></i>
                                 </span>
                             </button>
                     </div>
                     </a>
+                </div>
             </div>
         </div>
-    </div>
 </body>
 
 </html>

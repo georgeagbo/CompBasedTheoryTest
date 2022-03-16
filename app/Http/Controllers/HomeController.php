@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Exception;
 use App\Models\Question;
+use App\Models\Result;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\MessageBag;
@@ -120,14 +121,20 @@ class HomeController extends Controller
         $regNo =  $request['regNo'];
         $password = $request['password'];
 
-        User::create([
+        $user = User::create([
             'name' => $name,
             'email' => $email,
             'regNo' => $regNo,
             'password' => Hash::make($password),
-            'reg_no' => auth()->user()->reg_no,
+            'reg_no' => $regNo,
             'role' => '0'
 
+        ]);
+        Result::create([
+            'user_id' => $user->id,
+            'name' => $name,
+            'reg_no' => $regNo,
+            'score' => 0
         ]);
         $request->session()->flash('student', 'Student Created Succesfully');
         return view('/lecturer.add-student')
