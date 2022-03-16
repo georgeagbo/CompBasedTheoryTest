@@ -19,7 +19,7 @@ class QuestionController extends Controller
         $questions = Question::select('id', 'question')->paginate(1);
         $currentPage = $questions->currentPage();
     
-        return view('welcome')
+        return view('student.test')
             ->with('questions', $questions)
             ->with('currentPage', $currentPage);
     }

@@ -53,9 +53,43 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <!-- <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
+                </a> -->
+                @auth()
+                @if(auth()->user()->role =='2')
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    <h5 class="text-dark">Admin</h5>
                 </a>
+                <a class="navbar-brand" href="/lecturers">
+                    <h6 class="text-info">Create Lecturer</h6>
+                </a>
+                @endif
+
+                @if(auth()->user()->role =='1')
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    <h5 class="text-dark">Lecturer</h5>
+                </a>
+                <a class="navbar-brand" href="{{ url('/students') }}">
+                    <h6 class="text-info">Create Student</h6>
+                </a>
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    <h6 class="text-info">View Results</h6>
+                </a>
+                @endif
+
+                @if(auth()->user()->role =='0')
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    <h5 class="text-dark">Student</h5>
+                </a>
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    <h6 class="text-info">View Result</h6>
+                </a>
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    <h6 class="text-info">Take A Test</h6>
+                </a>
+                @endif
+                @endauth
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>

@@ -3,6 +3,7 @@
 namespace App\TheoryMarker;
 
 use App\Models\Question;
+use App\Models\Submission;
 use Doctrine\Inflector\Language;
 use Doctrine\Inflector\Inflector;
 use Doctrine\Inflector\InflectorFactory;
@@ -28,8 +29,14 @@ class SubmissionService
                 }
             }
         }
-
+        Submission::create([
+            'user_id' => auth()->user()->id,
+            'question_id' => $questionId,
+            'answer' => $answer,
+            'marks' => $marksObtained
+        ]);
         $marksObtained = $marksObtained > $question->marks_obtainable ? $question->marks_obtainable : $marksObtained;
+
         return ['mark' => $marksObtained, 'total' => $question->marks_obtainable];
     }
 
@@ -63,7 +70,6 @@ class SubmissionService
                     break;
                 }
             }
-
         } else {
             //check for singular and plural forms of words
 
