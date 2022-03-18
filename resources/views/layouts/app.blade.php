@@ -9,7 +9,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-
     <link rel="icon" type="image/png" href="images/icons/favicon.ico" />
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="{{ asset('/vendor/bootstrap/css/bootstrap.min.css') }}">
@@ -33,6 +32,7 @@
     <link href="{{ asset('/css/main.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/util.css') }}" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 
 
     <!-- Fonts -->
@@ -53,9 +53,46 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <!-- <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
+                </a> -->
+                @auth()
+                @if(auth()->user()->role =='2')
+                <a class="navbar-brand" href="/">
+                    <h5 class="text-dark">Admin</h5>
                 </a>
+                <a class="navbar-brand" href="/lecturers">
+                    <h6 class="text-info">Create Lecturer</h6>
+                </a>
+                @endif
+
+                @if(auth()->user()->role =='1')
+                <a class="navbar-brand" href="/">
+                    <h5 class="text-dark">Lecturer</h5>
+                </a>
+                <a class="navbar-brand" href="/students">
+                    <h6 class="text-info">Create Student</h6>
+                </a>
+                <a class="navbar-brand" href="/home">
+                    <h6 class="text-info">Set Questions</h6>
+                </a>
+                <a class="navbar-brand" href="/results">
+                    <h6 class="text-info">View Results</h6>
+                </a>
+                @endif
+
+                @if(auth()->user()->role =='0')
+                <a class="navbar-brand" href="/">
+                    <h5 class="text-dark">Student</h5>
+                </a>
+                <a class="navbar-brand" href="/students/{{auth()->user()->id}}/result">
+                    <h6 class="text-info">View Result</h6>
+                </a>
+                <a class="navbar-brand" href="/students/{{auth()->user()->id}}/test">
+                    <h6 class="text-info">Take A Test</h6>
+                </a>
+                @endif
+                @endauth
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -73,12 +110,6 @@
                         @if (Route::has('login'))
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                        </li>
-                        @endif
-
-                        @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                         </li>
                         @endif
                         @else
@@ -111,14 +142,14 @@
 
 
     <!--===============================================================================================-->
-    <script src="vendor/select2/select2.min.js"></script>
+    <script src="{{asset ('/vendor/select2/select2.min.js')}}"></script>
     <!--===============================================================================================-->
-    <script src="vendor/daterangepicker/moment.min.js"></script>
-    <script src="vendor/daterangepicker/daterangepicker.js"></script>
+    <script src="{{asset ('/vendor/daterangepicker/moment.min.js')}}"></script>
+    <script src="{{asset ('/vendor/daterangepicker/daterangepicker.js')}}"></script>
     <!--===============================================================================================-->
-    <script src="vendor/countdowntime/countdowntime.js"></script>
+    <script src="{{asset ('/vendor/countdowntime/countdowntime.js')}}"></script>
     <!--===============================================================================================-->
-    <script src="js/main.js"></script>
+    <script src="{{asset('/js/main.js')}}"></script>
 
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
