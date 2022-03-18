@@ -88,7 +88,8 @@
                 },
                 url: "/store/answer",
                 success: function(data) {
-                    $("#question_answer").html(data.mark + "/" + data.total)
+                    console.log('score recorded succesfully');
+                    // $("#question_answer").html(data.mark + "/" + data.total)
                     //window.location.href = data;
                 }
             });
