@@ -38,5 +38,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/students', [App\Http\Controllers\HomeController::class, 'createStudent'])->name('createStudent');
     Route::get('/students/{id}/test', [App\Http\Controllers\QuestionController::class, 'index'])->name('index');
     Route::get('/students/{id}/result', [App\Http\Controllers\ResultController::class, 'studentResult'])->name('result');
+    Route::get('/test-timeout', [App\Http\Controllers\TestController::class, 'timeOut'])->name('timeout');
     Route::resource('/results', App\Http\Controllers\ResultController::class);
+    Route::post('/results/search', [App\Http\Controllers\ResultController::class, 'resultSearch'])->name('result');
+    Route::get('/test-submitted', [App\Http\Controllers\TestController::class, 'submitTest'])->name('submitTest');
+
 });

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Result;
 use App\Models\Submission;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ResultController extends Controller
 {
@@ -22,7 +24,14 @@ class ResultController extends Controller
 
     public function studentResult()
     {
-        $result = Result::where('user_id',auth()->user()->id)->first();
+        $result = '';
+        $response = Gate::inspect('seeResult', User::class);
+
+        if ($response->denied()) {
+            return view('exceptions.no-result');
+        }
+
+        $result = Result::where('user_id', auth()->user()->id)->first();
         return view('student.result')
             ->with('result', $result);
     }
@@ -91,5 +100,16 @@ class ResultController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function resultSearch(Request $request)
+    {
+        if ($request['keyword']) {
+            $keyword = $request['keyword'];
+            $results =  Result::where('name', 'LIKE', '%' . $keyword . '%')->orWhere('reg_no', 'LIKE', '%' . $keyword . '%')->get();
+
+            return view('search')
+                ->with('results', $results);
+        }
     }
 }

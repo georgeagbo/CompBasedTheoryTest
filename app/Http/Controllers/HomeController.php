@@ -130,12 +130,7 @@ class HomeController extends Controller
             'role' => '0'
 
         ]);
-        Result::create([
-            'user_id' => $user->id,
-            'name' => $name,
-            'reg_no' => $regNo,
-            'score' => 0
-        ]);
+  
         $request->session()->flash('student', 'Student Created Succesfully');
         return view('/lecturer.add-student')
             ->with('name', $name)

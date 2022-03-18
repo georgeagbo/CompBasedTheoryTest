@@ -9,7 +9,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-
     <link rel="icon" type="image/png" href="images/icons/favicon.ico" />
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="{{ asset('/vendor/bootstrap/css/bootstrap.min.css') }}">
@@ -33,6 +32,7 @@
     <link href="{{ asset('/css/main.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/util.css') }}" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 
 
     <!-- Fonts -->
@@ -58,7 +58,7 @@
                 </a> -->
                 @auth()
                 @if(auth()->user()->role =='2')
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="/">
                     <h5 class="text-dark">Admin</h5>
                 </a>
                 <a class="navbar-brand" href="/lecturers">
@@ -67,11 +67,14 @@
                 @endif
 
                 @if(auth()->user()->role =='1')
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="/">
                     <h5 class="text-dark">Lecturer</h5>
                 </a>
-                <a class="navbar-brand" href="{{ url('/students') }}">
+                <a class="navbar-brand" href="/students">
                     <h6 class="text-info">Create Student</h6>
+                </a>
+                <a class="navbar-brand" href="/home">
+                    <h6 class="text-info">Set Questions</h6>
                 </a>
                 <a class="navbar-brand" href="/results">
                     <h6 class="text-info">View Results</h6>
@@ -79,7 +82,7 @@
                 @endif
 
                 @if(auth()->user()->role =='0')
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="/">
                     <h5 class="text-dark">Student</h5>
                 </a>
                 <a class="navbar-brand" href="/students/{{auth()->user()->id}}/result">
@@ -107,12 +110,6 @@
                         @if (Route::has('login'))
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                        </li>
-                        @endif
-
-                        @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                         </li>
                         @endif
                         @else
@@ -145,14 +142,14 @@
 
 
     <!--===============================================================================================-->
-    <script src="vendor/select2/select2.min.js"></script>
+    <script src="{{asset ('/vendor/select2/select2.min.js')}}"></script>
     <!--===============================================================================================-->
-    <script src="vendor/daterangepicker/moment.min.js"></script>
-    <script src="vendor/daterangepicker/daterangepicker.js"></script>
+    <script src="{{asset ('/vendor/daterangepicker/moment.min.js')}}"></script>
+    <script src="{{asset ('/vendor/daterangepicker/daterangepicker.js')}}"></script>
     <!--===============================================================================================-->
-    <script src="vendor/countdowntime/countdowntime.js"></script>
+    <script src="{{asset ('/vendor/countdowntime/countdowntime.js')}}"></script>
     <!--===============================================================================================-->
-    <script src="js/main.js"></script>
+    <script src="{{asset('/js/main.js')}}"></script>
 
 
     <!-- Global site tag (gtag.js) - Google Analytics -->

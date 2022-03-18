@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Submission;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\TheoryMarker\SubmissionService;
 
@@ -34,7 +35,7 @@ class SubmissionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request):array
+    public function store(Request $request): array
     {
 
         $marksObtained = (new SubmissionService)->markQuestion($request->questionId, $request->answer);
@@ -85,5 +86,11 @@ class SubmissionController extends Controller
     public function destroy(Submission $submission)
     {
         //
+    }
+
+    public function completedExam()
+    {
+
+        return "success";
     }
 }

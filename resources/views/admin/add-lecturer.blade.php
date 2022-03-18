@@ -7,7 +7,7 @@
 </div>
 
 <div class="ml-3">
-    <span class="text-primary font-weight-bold">New Lecturer's Login Info</span>
+    <span class="text-primary font-weight-bold">New Lecturer Login Info</span>
     <h6 class="mt-3">Name: {{$name ?? ''}} </h6>
     <h6>Email: {{$email ?? ''}} </h6>
     <h6>Password: {{$password ?? ''}} </h6>

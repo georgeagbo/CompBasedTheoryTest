@@ -18,7 +18,7 @@ class CreateResultsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('name');
             $table->string('reg_no');
-            $table->integer('score');
+            $table->integer('score')->nullable();
             $table->timestamps();
         });
     }

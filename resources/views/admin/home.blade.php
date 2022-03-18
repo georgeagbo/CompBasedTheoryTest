@@ -1,7 +1,5 @@
 @extends('layouts.app')
-
 @section('content')
-
 
 @if(auth()->user()->role == '1')
 <div class="container">
