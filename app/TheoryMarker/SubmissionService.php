@@ -63,7 +63,6 @@ class SubmissionService
                     break;
                 }
             }
-
         } else {
             //check for singular and plural forms of words
 
