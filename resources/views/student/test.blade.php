@@ -19,7 +19,7 @@
         @if(auth()->user()->test_status == '0')
         <form class="contact100-form validate-form" id="form">
             @csrf
-            <a id="submitExam" class="bg-gray-100 dark:bg-gray-900" href="javascript::void[0]" style="font-size: 18px; margin-right: 50px;border-radius: 4px; padding: 4px 8px 4px 8px; color: #fff;">Submit And Go!</a>
+            <a id="submitExam" href="javascript::void[0]" style="font-size: 18px; margin-right: 50px;border-radius: 4px; padding: 4px 8px 4px 8px; color: #fff; background-color: #01131C;">Submit And Go!</a>
 
             <span class="contact100-form-title" style="position: relative; right: 0px;" id="timer">
                 0 1 : 1 0

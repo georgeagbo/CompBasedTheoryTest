@@ -15,7 +15,7 @@
                                 <div id="search">
                                     <input type="text" class="form-control" placeholder="Enter Keyword" name="keyword" style="border-color: steelblue; border-radius: 4px 0px 0px 4px;" required>
                                 </div>
-                                <button class="bg-gray-100 dark:bg-gray-900" type="submit" style="font-size: 18px; margin-right: 125px; border-radius: 0px 4px 0px 0px; padding: 4px 8px 4px 8px; color: #fff;">Search</button>
+                                <button type="submit" style="font-size: 18px; margin-right: 125px; border-radius: 0px 4px 0px 0px; padding: 4px 8px 4px 8px; color: #fff; background-color: #01131C;">Search</button>
                             </div>
                         </div>
                     </div>
