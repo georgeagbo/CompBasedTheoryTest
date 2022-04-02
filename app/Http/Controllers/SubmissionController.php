@@ -39,6 +39,7 @@ class SubmissionController extends Controller
     {
         return $request->all();
         $marksObtained = (new SubmissionService)->markQuestion($request->questionId, $request->answer);
+        
 
         //return $marksObtained;
     }

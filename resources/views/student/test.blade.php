@@ -44,14 +44,6 @@
                 <span class="focus-input100"></span>
             </div>
             <div id="question_answer"></div>
-            <!-- <div class="container-contact100-form-btn">
-                <button class="contact100-form-btn" id="submit">
-                    <span>
-                        Submit Answer
-                        <i class="zmdi zmdi-arrow-right m-l-8"></i>
-                    </span>
-                </button>
-            </div> -->
         </form>
         <div class="row col-md-6 m-auto text-center">
             <button class="bg-light text-primary p-2 mr-5" id="previous">Previous</button>
@@ -74,36 +66,33 @@
         @endif
     </div>
 </div>
+
 <script src="{{asset ('/js/timer.js')}}"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('next').addEventListener('click', nextQuestion)
         document.getElementById('previous').addEventListener('click', previousQuestion)
-        let question = document.getElementById('question');
+        let questionView = document.getElementById('question');
         let answer = document.getElementById('answer')
 
-
-        //let submit = document.getElementById('submit');
-
-        let i = 0;
-        var questionView = document.getElementById('question');
         var questions = document.getElementById('question').getAttribute('data');
         var questionArray = JSON.parse(questions)
-        question.value = questionArray[0].question
+        questionView.value = questionArray[0].question
 
+        let i = 0;
         let data = [];
 
         function nextQuestion() {
             if (i < questionArray.length - 1) {
                 i++;
                 let answerValue = answer.value
-                var addObject = {
+                var dataObject = {
                     question_id: questionArray[i].id,
                     answer: `${answerValue}`
                 }
 
-                showQuestionAndAnswer(questionArray[i], addObject);
-                updateData(addObject);
+                showQuestionAndAnswer(questionArray[i], dataObject);
+                updateData(dataObject);
 
             } else {
                 submitExam(data);
@@ -115,12 +104,11 @@
 
             if (i >= 1) {
                 i--;
-                //let lastIndex = data[i];
                 objectIndex = data.findIndex(function(arr) {
 
                 });
 
-                addObject = {
+                dataObject = {
                     id: i += 1,
                     question_id: questionArray[i].question_id,
                     answer: answer.value
@@ -129,7 +117,7 @@
         }
 
         function showQuestionAndAnswer(questionArray, obj) {
-            question.value = questionArray.question;
+            questionView.value = questionArray.question;
             answer.value = obj.answer;
         }
 
@@ -139,26 +127,19 @@
         }
     });
 
-    // var questionId = $("#question").data("id");
-    // var answer = $("#answer").val();
-
     function submitExam(data) {
         $.ajax({
             type: "POST",
             data: {
                 "_token": $('meta[name="csrf-token"]').attr('content'),
                 "data": data,
-
-
             },
             url: "/store/answer",
             success: function(data) {
-                window.location = '/test-submitted'
-
+                console.log(data);
             }
         });
     }
 </script>
-<script src="{{asset ('/js/timer.js')}}"></script>
 
 @endsection
