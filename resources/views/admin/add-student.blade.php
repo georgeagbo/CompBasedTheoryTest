@@ -2,24 +2,32 @@
 @section('content')
 
 @if ($message = Session::get('student'))
-<div class="alert alert-success">
-    <strong>{{ $message }}</strong>
-</div>
+<div class="row justify-content-center">
+    <div class="col-md-4 mb-5">
+        <div class="card">
+            <div class="card-header alert alert-success">{{ $message }}</div>
 
-<div class="ml-3">
-    <span class="text-primary font-weight-bold">New Student Login Info</span>
-    <h6 class="mt-3">Name: {{$name ?? ''}} </h6>
-    <h6>Email: {{$email ?? ''}} </h6>
-    <h6>Reg No: {{$regNo ?? ''}} </h6>
-    <h6>Password: {{$password ?? ''}} </h6>
+            <div class="card-body p-2px text-center">
+                <div>
+                    <span class="text-primary font-weight-bold pb-2">New student Login Info</span>
+                    <p class="pb-2">Copy info and send to student because you will not be able to see it again</p>
+                    <div class="ml-5 pl-5">
+                        <p class="mb-1 text-left">Name: {{$name ?? ''}} </p>
+                        <p class="mb-1 text-left">Email: {{$email ?? ''}} </p>
+                        <p class="mb-1 text-left">Reg No: {{$regNo ?? ''}} </p>
+                        <p class="mb-1 text-left">Password: {{$password ?? ''}} </h>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endif
-
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header" style="background-color: #01131C; color:#fff">{{ __('New Student') }}</div>
+            <div class="card mt-5">
+                <div class="card-header">{{ __('New Student') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="/students">
@@ -82,7 +90,7 @@
                         </div>
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn" style="background-color: #01131C; color:#fff">
+                                <button type="submit" class="btn">
                                     Create
                                 </button>
                             </div>

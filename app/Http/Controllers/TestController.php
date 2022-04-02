@@ -28,12 +28,12 @@ class TestController extends Controller
         $user->test_status = '1';
         $user->save();
 
-        Result::create([
-            'user_id' => auth()->user()->id,
-            'name' => auth()->user()->name,
-            'reg_no' => auth()->user()->reg_no,
-            'score' => 0
-        ]);
+        // Result::create([
+        //     'user_id' => auth()->user()->id,
+        //     'name' => auth()->user()->name,
+        //     'reg_no' => auth()->user()->reg_no,
+        //     'score' => 0
+        // ]);
         return view('test.submit');
     }
 }

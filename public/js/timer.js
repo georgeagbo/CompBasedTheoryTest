@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function (event) {
   const timer = document.getElementById('timer')
-  let timeSecond = 120;
+  let timeSecond = 5000;
 
   let countDown = setInterval(function () {
     timeSecond--

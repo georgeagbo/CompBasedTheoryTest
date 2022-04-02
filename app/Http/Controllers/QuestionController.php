@@ -13,15 +13,22 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
 
-        $questions = Question::select('id', 'question')->paginate(1);
-        $currentPage = $questions->currentPage();
-    
+    public function course()
+    {
+        return view('select-course');
+    }
+
+    public function questions(Request $request)
+    {
+        $title = $request['title'];
+        $questions = Question::where('course', $title)->get();
+        //$questions = Question::select('id', 'question')->paginate(1);
+        //$currentPage = $questions->currentPage();
+
         return view('student.test')
-            ->with('questions', $questions)
-            ->with('currentPage', $currentPage);
+            ->with('questions', $questions);
+            //->with('currentPage', $currentPage);
     }
 
     /**

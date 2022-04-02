@@ -15,10 +15,17 @@ class CreateQuestionsTable extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
+            $table->string('course');
+            $table->unsignedBigInteger('lecturer_id')->nullable();
             $table->string('question');
             $table->unsignedInteger('marks_obtainable');
             $table->json('answers');
             $table->timestamps();
+
+            $table->foreign('lecturer_id')
+            ->references('id')
+            ->on('lecturers')
+            ->onDelete('cascade');
         });
     }
 

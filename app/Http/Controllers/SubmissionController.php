@@ -37,10 +37,10 @@ class SubmissionController extends Controller
      */
     public function store(Request $request): array
     {
-
+        return $request->all();
         $marksObtained = (new SubmissionService)->markQuestion($request->questionId, $request->answer);
 
-        return $marksObtained;
+        //return $marksObtained;
     }
 
     /**

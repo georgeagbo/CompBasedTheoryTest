@@ -27,6 +27,7 @@ class QuestionService
     }
     private function uploadQuestion(array $questionInfo, Question $question)
     {
+        $question->course = $questionInfo['course'];
         $question->question = $questionInfo['question'];
         $question->marks_obtainable = $questionInfo['marks_obtainable'];
         $answers = [];
@@ -46,4 +47,5 @@ class QuestionService
         $question->save();
         return $question;
     }
+    
 }
