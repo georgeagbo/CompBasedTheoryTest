@@ -16,7 +16,7 @@
             </a>
         </div>
         @else
-        @if(auth()->user()->test_status == '0')
+        @if(empty(auth()->user()->result))
         <form class="contact100-form validate-form" id="form">
             @csrf
             <a id="submitExam" href="javascript::void[0]" style="font-size: 18px; margin-right: 50px;border-radius: 4px; padding: 4px 8px 4px 8px; color: #fff; background-color: #01131C;">Submit And Go!</a>
@@ -67,11 +67,11 @@
     </div>
 </div>
 
-<script src="{{asset ('/js/timer.js')}}"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('next').addEventListener('click', nextQuestion)
         document.getElementById('previous').addEventListener('click', previousQuestion)
+
         let questionView = document.getElementById('question');
         let answer = document.getElementById('answer')
 
@@ -85,34 +85,38 @@
         function nextQuestion() {
             if (i < questionArray.length - 1) {
                 i++;
-                let answerValue = answer.value
-                var dataObject = {
-                    question_id: questionArray[i].id,
-                    answer: `${answerValue}`
+                if (data[i] != null) {
+                    answer.value = data[i].answer;
+                } else {
+                    let answerValue = answer.value
+                    if (questionArray[i].id != null) {
+                        var dataObject = {
+                            question_id: questionArray[i].id,
+                            answer: `${answerValue}`
+                        }
+                    }
                 }
-
                 showQuestionAndAnswer(questionArray[i], dataObject);
                 updateData(dataObject);
 
-            } else {
-                submitExam(data);
-            }
+            } 
 
         }
 
         function previousQuestion() {
-
             if (i >= 1) {
                 i--;
-                objectIndex = data.findIndex(function(arr) {
+                questionView.value = questionArray[i].question
 
-                });
+                answer.value = data[i].answer
 
-                dataObject = {
-                    id: i += 1,
-                    question_id: questionArray[i].question_id,
-                    answer: answer.value
+
+                let newAnswer = answer.value;
+                data[i] = {
+                    question_id: questionArray[i].id,
+                    answer: `${newAnswer}`
                 }
+
             }
         }
 
@@ -124,7 +128,13 @@
         function updateData(obj) {
             data.push(obj)
             console.log(data)
+            answer.value = null;
         }
+
+        const submit = document.getElementById('submitExam');
+        submit.addEventListener('click', function() {
+            submitExam(data);
+        });
     });
 
     function submitExam(data) {
@@ -136,10 +146,13 @@
             },
             url: "/store/answer",
             success: function(data) {
-                console.log(data);
+                window.location.href = '/test-submitted'
+                //console.log(data);
+
             }
         });
     }
 </script>
+<script src="{{asset ('/js/timer.js')}}"></script>
 
 @endsection

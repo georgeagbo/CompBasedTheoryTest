@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function (event) {
   const timer = document.getElementById('timer')
-  let timeSecond = 5000;
+  let timeSecond = 120;
 
   let countDown = setInterval(function () {
     timeSecond--
@@ -20,14 +20,10 @@ document.addEventListener('DOMContentLoaded', function (event) {
       sec < 10 ? '0' : ''
     } ${sec}`
   }
+
   function endTime() {
+     submitExam(data);
     document.body.innerHTML = window.location = '/test-timeout'
   }
-  function submitTest() {
-    document.body.innerHTML = window.location = '/test-submitted'
-  }
-  const submit = document.getElementById('submitExam');
-  submit.addEventListener('click', function () {
-    submitTest();
-  });
+
 })

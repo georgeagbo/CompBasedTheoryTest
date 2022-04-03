@@ -17,12 +17,14 @@
 
                     <div class="grid">
                         <div class="row">
-                            <div class='col-md-8'>Questions</div>
+                            <div class='col-md-4'>Course</div>
+                            <div class='col-md-4'>Questions</div>
                             <div class='col-md-4'>Actions</div>
                         </div>
                         @foreach($questions as $question)
                         <div class="row border border-bottom-0 border-left-0 border-right-0 pb-1 pt-1">
-                            <div class='col-md-7'>{{$question->question}}</div>
+                            <div class='col-md-4'>{{$question->course?? ''}}</div>
+                            <div class='col-md-4'>{{$question->question}}</div>
                             <div class='col-xs-2'><a href="/edit/question/{{$question->id}}" class="btn btn-warning btn-sm mr-2">Edit</a></div>
                             <div class='col-xs-2'>
                                 <form action="/question/delete/{{$question->id}}" method="post">
@@ -87,10 +89,9 @@
                                             <div class="col-md-8">
                                                 <select class="form-control" id="course" name="course">
                                                     <option selected disabled>Select Course</option>
-                                                    <option>Computer Appreciation</option>
-                                                    <option>Computer programming</option>
-                                                    <option>Graphics Design</option>
-                                                    <option>Computer Maintenance</option>
+                                                    @foreach($courses as $course)
+                                                    <option value="{{$course->title}}">{{$course->title}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>

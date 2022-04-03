@@ -22,7 +22,7 @@ class UserPolicy
 
     public function seeResult(User $user)
     {
-        return $user->test_status == '1'
+        return $user->result
             ? Response::allow()
             : Response::deny();
     }

@@ -1,28 +1,6 @@
 @extends('layouts.app')
 @section('content')
 
-@if ($message = Session::get('student'))
-<div class="row justify-content-center">
-    <div class="col-md-4 mb-5">
-        <div class="card">
-            <div class="card-header alert alert-success">{{ $message }}</div>
-
-            <div class="card-body p-2px text-center">
-                <div>
-                    <span class="text-primary font-weight-bold pb-2">New student Login Info</span>
-                    <p class="pb-2">Copy info and send to student because you will not be able to see it again</p>
-                    <div class="ml-5 pl-5">
-                        <p class="mb-1 text-left">Name: {{$name ?? ''}} </p>
-                        <p class="mb-1 text-left">Email: {{$email ?? ''}} </p>
-                        <p class="mb-1 text-left">Reg No: {{$regNo ?? ''}} </p>
-                        <p class="mb-1 text-left">Password: {{$password ?? ''}} </h>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endif
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">

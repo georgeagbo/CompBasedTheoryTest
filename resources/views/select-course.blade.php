@@ -16,10 +16,9 @@
                         <div class="col-md-8 mb-5">
                             <select class="form-control" id="sel1" name="title" required>
                                 <option selected disabled>Select Course</option>
-                                <option>Computer Appreciation</option>
-                                <option>Computer programming</option>
-                                <option>Graphics Design</option>
-                                <option>Computer Maintenance</option>
+                                @foreach($courses as $course)
+                                <option value="{{$course->title}}">{{$course->title ?? ''}}</option>
+                                @endforeach
                             </select>
                         </div>
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,15 +17,15 @@ class QuestionController extends Controller
 
     public function course()
     {
-        return view('select-course');
+        $courses = Course::all();
+        return view('select-course')
+        ->with('courses',$courses);
     }
 
     public function questions(Request $request)
-    {
+    {    
         $title = $request['title'];
         $questions = Question::where('course', $title)->get();
-        //$questions = Question::select('id', 'question')->paginate(1);
-        //$currentPage = $questions->currentPage();
 
         return view('student.test')
             ->with('questions', $questions);

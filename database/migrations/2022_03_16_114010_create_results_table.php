@@ -17,9 +17,11 @@ class CreateResultsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('course_id')->nullable();
+            $table->string('course_title')->nullable();
             $table->string('name');
             $table->string('reg_no');
             $table->integer('score')->nullable();
+            $table->string('exam_status')->default('0');
             $table->timestamps();
 
 

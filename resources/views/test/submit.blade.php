@@ -5,7 +5,7 @@
         <div class="wrap-contact100">
             <div class="contact100-form validate-form" id="form">
                 <span class="contact100-form-title" style="color: steelBlue;">
-                   You Have Succesfully Submitted Your Test!!
+                   Exam Completed!!
                 </span>
                 <div class="container-contact100-form-btn">
                     <a href="/students/{{auth()->user()->id}}/result">

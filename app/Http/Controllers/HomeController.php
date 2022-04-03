@@ -39,8 +39,11 @@ class HomeController extends Controller
     public function index()
     {
         $questions = Question::all();
+        $courses = Course::all();
+
         return view('admin/home')
-            ->with('questions', $questions);
+            ->with('questions', $questions)
+            ->with('courses', $courses);
     }
 
     public function store(Request $request)

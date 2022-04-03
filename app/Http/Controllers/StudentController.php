@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Course;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -58,11 +59,13 @@ class StudentController extends Controller
         ]);
 
         $request->session()->flash('student', 'Student Created Succesfully');
-        return view('admin.add-student')
+        $students = User::Where('role', '0')->get();
+        return view('student.all')
         ->with('name', $name)
             ->with('email', $email)
             ->with('regNo', $regNo)
-            ->with('password', $password);
+            ->with('password', $password)
+            ->with('students',$students);
     }
 
     /**

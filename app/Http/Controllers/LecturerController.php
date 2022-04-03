@@ -19,7 +19,7 @@ class LecturerController extends Controller
     {
         $lecturers = User::Where('role', '1')->get();
         return view('lecturer.all')
-        ->with('lecturers', $lecturers);
+            ->with('lecturers', $lecturers);
     }
 
     /**
@@ -54,7 +54,7 @@ class LecturerController extends Controller
         $course = Course::create([
             'user_id' => $user->id,
             'title' => $request['title'],
-            'exam_duration' => $duration
+            'exam_duration' => $duration,
         ]);
 
         Lecturer::create([
@@ -62,12 +62,14 @@ class LecturerController extends Controller
             'course_id' => $course->id
         ]);
 
+        $lecturers = User::Where('role', '1')->get();
 
         $request->session()->flash('lecturer', 'Lecturer Created Succesfully');
-        return view('admin.add-lecturer')
-        ->with('name', $name)
+        return view('lecturer.all')
+            ->with('name', $name)
             ->with('email', $email)
-            ->with('password', $password);
+            ->with('password', $password)
+            ->with('lecturers',$lecturers);
     }
 
     /**
@@ -101,7 +103,7 @@ class LecturerController extends Controller
      */
     public function update(Request $request, $id)
     {
-       dd('Lets update');
+        dd('Lets update');
     }
 
     /**
@@ -112,6 +114,6 @@ class LecturerController extends Controller
      */
     public function destroy($id)
     {
-       dd('Let delete');
+        dd('Let delete');
     }
 }
