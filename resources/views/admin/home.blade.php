@@ -7,7 +7,6 @@
         <div class="col-lg-4">
             <div class="card">
                 <div class="card-header">{{ __('Uploaded Questions') }}</div>
-
                 <div class="card-body">
                     @if (session('status'))
                     <div class="alert alert-success" role="alert">
@@ -51,9 +50,10 @@
                         <div class="wrap-contact100">
                             <form class="contact100-form validate-form" action="/store" method="post">
                                 @csrf
-                                <span class="contact100-form-title">
+                                <span class="contact100-form-title mb-0">
                                     Upload Questions
                                 </span>
+                                <h6 class="mb-5 text-primary">Note: A lecturer must be assigned a course before questions for the course can be set</h6>
                                 @if (session('errors'))
                                 <div class="alert alert-danger" role="alert">
                                     {{session('errors')->first('error')}}

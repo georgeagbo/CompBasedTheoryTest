@@ -4,6 +4,12 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+
+            @if (session('unsuccesful'))
+            <div class="alert alert-danger" role="alert">
+                {{ session('unsuccesful') }}
+            </div>
+            @endif
             <div class="card mt-5">
                 <div class="card-header">{{ __('New Lecturer') }}</div>
 

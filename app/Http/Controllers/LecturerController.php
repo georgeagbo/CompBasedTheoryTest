@@ -40,6 +40,18 @@ class LecturerController extends Controller
      */
     public function store(Request $request)
     {
+        $name = '';
+        $email ='';
+        $password ='';
+        $lecturers = '';
+
+        $courses = Course::where('title',$request['title'])->first();
+
+        if (!empty($courses)) {
+            $request->session()->flash('unsuccesful', $request['title'].' has being assigned to a lecturer');
+            return view('admin.add-lecturer');
+
+        }else{
         $duration = intval($request['exam_duration']);
         $name = $request['name'];
         $email =  $request['email'];
@@ -65,6 +77,7 @@ class LecturerController extends Controller
         $lecturers = User::Where('role', '1')->get();
 
         $request->session()->flash('lecturer', 'Lecturer Created Succesfully');
+    }
         return view('lecturer.all')
             ->with('name', $name)
             ->with('email', $email)
