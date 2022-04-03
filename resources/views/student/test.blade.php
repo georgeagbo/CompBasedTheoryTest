@@ -24,8 +24,8 @@
             <span class="contact100-form-title" style="position: relative; right: 0px;" id="timer">
                 0 1 : 1 0
             </span>
-            <span class="contact100-form-title">
-                Lets GO!!
+            <span id="exam-duration" class="contact100-form-title" data-title="{{$examDuration}}">
+               {{$title}}
             </span>
 
             <label class="label-input100" for="message">Question No</label>
@@ -99,7 +99,7 @@
                 showQuestionAndAnswer(questionArray[i], dataObject);
                 updateData(dataObject);
 
-            } 
+            }
 
         }
 
@@ -107,16 +107,13 @@
             if (i >= 1) {
                 i--;
                 questionView.value = questionArray[i].question
-
                 answer.value = data[i].answer
-
 
                 let newAnswer = answer.value;
                 data[i] = {
-                    question_id: questionArray[i].id,
+                    question_id: 100,
                     answer: `${newAnswer}`
                 }
-
             }
         }
 
@@ -146,8 +143,8 @@
             },
             url: "/store/answer",
             success: function(data) {
-                window.location.href = '/test-submitted'
-                //console.log(data);
+                //window.location.href = '/test-submitted'
+                console.log(data);
 
             }
         });

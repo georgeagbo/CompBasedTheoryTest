@@ -53,6 +53,7 @@ class LecturerController extends Controller
 
         }else{
         $duration = intval($request['exam_duration']);
+
         $name = $request['name'];
         $email =  $request['email'];
         $password = $request['password'];

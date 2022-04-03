@@ -25,10 +25,15 @@ class QuestionController extends Controller
     public function questions(Request $request)
     {    
         $title = $request['title'];
+        $course = Course::where('title',$request['title'])->first();
+        $examDuration = $course->exam_duration;
+        
         $questions = Question::where('course', $title)->get();
 
         return view('student.test')
-            ->with('questions', $questions);
+            ->with('questions', $questions)
+            ->with('title',$title)
+            ->with('examDuration',$examDuration);
             //->with('currentPage', $currentPage);
     }
 
