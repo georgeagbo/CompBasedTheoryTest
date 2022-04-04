@@ -30,7 +30,7 @@
 
             <label class="label-input100" for="message">Question No</label>
             <div class="wrap-input100 validate-input">
-                <textarea id="question" class="input100" name="question" data="{{$questions}}"></textarea>
+                <textarea id="question" class="input100" name="question" data="{{$questions}}" readonly></textarea>
                 <span class="focus-input100"></span>
             </div>
 
