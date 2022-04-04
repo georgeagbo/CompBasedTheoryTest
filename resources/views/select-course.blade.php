@@ -16,8 +16,8 @@
                         <label for="password" class="col-md-4 col-form-label text-md-right">Select Course</label>
 
                         <div class="col-md-8 mb-5">
-                            <select class="form-control" id="sel1" name="title" required>
-                                <option selected disabled>Select Course</option>
+                            <select class="form-control" name="title" required>
+                                <option selected disabled value="">Select Course</option>
                                 @foreach($courses as $course)
                                 <option value="{{$course->title}}">{{$course->title ?? ''}}</option>
                                 @endforeach
@@ -26,7 +26,7 @@
 
                         <div class="container-contact100-form-btn">
                             <a href="/students/{{auth()->user()->id}}/result">
-                                <button class="contact100-form-btn" id="submit">
+                                <button class="contact100-form-btn" id="submit" value="submit" type="submit">
                                     <span>
                                         Start Exam
                                         <i class="zmdi zmdi-arrow-right m-l-8"></i>

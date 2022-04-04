@@ -43,6 +43,7 @@
                                 <th scope="col">ID</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Email</th>
+                                <th scope="col">Reg No</th>
                                 <th scope="col">Edit</th>
                                 <th scope="col">Delete</th>
 
@@ -54,6 +55,7 @@
                                 <td>{{$student->id ?? ''}}</td>
                                 <td>{{$student->name ?? ''}}</td>
                                 <td>{{$student->email ?? ''}}</td>
+                                <td>{{$student->student->reg_no ?? ''}}</td>
                                 <td><a href="/students/{{$student->id}}/edit" class="btn btn-warning">Edit</a></td>
                                 <td>
                                     <form action="/students/{{$student->id}}" method="post">

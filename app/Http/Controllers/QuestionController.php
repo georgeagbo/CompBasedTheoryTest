@@ -23,7 +23,10 @@ class QuestionController extends Controller
     }
 
     public function questions(Request $request)
-    {    
+    {    $title = '';
+        $questions = '';
+        $examDuration = '';
+        
         $title = $request['title'];
         $course = Course::where('title',$request['title'])->first();
         $examDuration = $course->exam_duration;

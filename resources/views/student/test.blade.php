@@ -143,8 +143,8 @@
             },
             url: "/store/answer",
             success: function(data) {
-                //window.location.href = '/test-submitted'
-                console.log(data);
+                window.location.href = '/test-submitted'
+                //console.log(data);
 
             }
         });

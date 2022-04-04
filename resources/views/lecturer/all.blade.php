@@ -12,13 +12,12 @@
     <div class="col-md-4">
         <div class="card">
             <div class="card-header alert alert-success">{{ $message }}</div>
-
             <div class="card-body p-2px text-center">
                 <div>
                     <span class="text-primary font-weight-bold pb-2">New Lecturer Login Info</span>
                     <p class="pb-2">Copy info and send to lecturer because you will not be able to see it again</p>
                     <div class="ml-5 pl-5">
-                        <p class="mb-1 text-left">Name: {{$name ?? ''}} </p>
+                        <p class="mb-1 text-left">Name: {{$name}} </p>
                         <p class="mb-1 text-left">Email: {{$email ?? ''}} </p>
                         <p class="mb-1 text-left">Password: {{$password ?? ''}} </h>
                     </div>
@@ -42,6 +41,7 @@
                             <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">Name</th>
+                                <th scope="col">Email</th>
                                 <th scope="col">Course</th>
                                 <th scope="col">Edit</th>
                                 <th scope="col">Delete</th>
@@ -49,11 +49,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                    
+
                             @foreach($lecturers as $lecturer)
                             <tr>
                                 <td>{{$lecturer->id ?? ''}}</td>
                                 <td>{{$lecturer->name ?? ''}}</td>
+                                <td>{{$lecturer->email ?? ''}}</td>
                                 <td>{{$lecturer->course->title ?? ''}}</td>
                                 <td><a href="/lecturers/{{$lecturer->id}}/edit" class="btn btn-warning">Edit</a></td>
                                 <td>

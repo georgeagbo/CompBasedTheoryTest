@@ -43,7 +43,7 @@ class LecturerController extends Controller
     {
         $name = '';
         $email = '';
-        $course = '';
+        $password = '';
 
 
         $courses = Course::where('title', $request['title'])->first();
@@ -53,19 +53,21 @@ class LecturerController extends Controller
             return view('admin.add-lecturer');
         } else {
             $lecturerCommand = (new LecturerCommand())->addLecturer($request);
+            $lecturers = User::where('role','1')->get();
 
             if ($lecturerCommand['success'] = true) {
 
                 $name = $request['name'];
                 $email = $request['email'];
-                $course = $request['course'];
+                $password = $request['password'];
 
                 $request->session()->flash('lecturer', 'Lecturer information successfully updated');
-                return redirect('/lecturers')
+                return view('lecturer.all')
                 ->with([
                     'name' => $name,
                     'email' => $email,
-                    'course' => $course
+                    'password' => $password,
+                    'lecturers' => $lecturers
                 ]);
             }
         }
