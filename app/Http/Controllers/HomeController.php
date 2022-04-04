@@ -38,6 +38,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $questions =  '';
+        $courses = '';
+
         $questions = Question::all();
         $courses = Course::all();
 
@@ -62,6 +65,7 @@ class HomeController extends Controller
 
     public function edit(int $question)
     {
+        
         $currentQuestion = Question::find($question);
 
         return view('admin.edit-question')

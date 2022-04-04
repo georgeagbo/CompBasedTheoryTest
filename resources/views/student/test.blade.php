@@ -25,7 +25,7 @@
                 0 1 : 1 0
             </span>
             <span id="exam-duration" class="contact100-form-title" data-title="{{$examDuration}}">
-               {{$title}}
+                {{$title}}
             </span>
 
             <label class="label-input100" for="message">Question No</label>
@@ -73,7 +73,7 @@
         document.getElementById('previous').addEventListener('click', previousQuestion)
 
         let questionView = document.getElementById('question');
-        let answer = document.getElementById('answer')
+        let answerView = document.getElementById('answer')
 
         var questions = document.getElementById('question').getAttribute('data');
         var questionArray = JSON.parse(questions)
@@ -86,9 +86,9 @@
             if (i < questionArray.length - 1) {
                 i++;
                 if (data[i] != null) {
-                    answer.value = data[i].answer;
+                    answerView.value = data[i].answer;
                 } else {
-                    let answerValue = answer.value
+                    let answerValue = answerView.value
                     if (questionArray[i].id != null) {
                         var dataObject = {
                             question_id: questionArray[i].id,
@@ -107,9 +107,9 @@
             if (i >= 1) {
                 i--;
                 questionView.value = questionArray[i].question
-                answer.value = data[i].answer
+                answerView.value = data[i].answer
 
-                let newAnswer = answer.value;
+                let newAnswer = answerview.value;
                 data[i] = {
                     question_id: 100,
                     answer: `${newAnswer}`
@@ -119,13 +119,12 @@
 
         function showQuestionAndAnswer(questionArray, obj) {
             questionView.value = questionArray.question;
-            answer.value = obj.answer;
+            answerView.value = obj.answer;
         }
 
         function updateData(obj) {
             data.push(obj)
-            console.log(data)
-            answer.value = null;
+            answerView.value = null;
         }
 
         const submit = document.getElementById('submitExam');
