@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\CommandClass\LecturerCommand;
 use App\Models\User;
 use App\Models\Course;
 use App\Models\Lecturer;
@@ -41,49 +42,33 @@ class LecturerController extends Controller
     public function store(Request $request)
     {
         $name = '';
-        $email ='';
-        $password ='';
-        $lecturers = '';
+        $email = '';
+        $course = '';
 
-        $courses = Course::where('title',$request['title'])->first();
+
+        $courses = Course::where('title', $request['title'])->first();
 
         if (!empty($courses)) {
-            $request->session()->flash('unsuccesful', $request['title'].' has being assigned to a lecturer');
+            $request->session()->flash('unsuccesful', $request['title'] . ' has being assigned to a lecturer');
             return view('admin.add-lecturer');
+        } else {
+            $lecturerCommand = (new LecturerCommand())->addLecturer($request);
 
-        }else{
-        $duration = intval($request['exam_duration']);
+            if ($lecturerCommand['success'] = true) {
 
-        $name = $request['name'];
-        $email =  $request['email'];
-        $password = $request['password'];
-        $user = User::create([
-            'name' => $name,
-            'email' => $email,
-            'password' => Hash::make($password),
-            'role' => '1'
-        ]);
+                $name = $request['name'];
+                $email = $request['email'];
+                $course = $request['course'];
 
-        $course = Course::create([
-            'user_id' => $user->id,
-            'title' => $request['title'],
-            'exam_duration' => $duration,
-        ]);
-
-        Lecturer::create([
-            'user_id' => $user->id,
-            'course_id' => $course->id
-        ]);
-
-        $lecturers = User::Where('role', '1')->get();
-
-        $request->session()->flash('lecturer', 'Lecturer Created Succesfully');
-    }
-        return view('lecturer.all')
-            ->with('name', $name)
-            ->with('email', $email)
-            ->with('password', $password)
-            ->with('lecturers',$lecturers);
+                $request->session()->flash('lecturer', 'Lecturer information successfully updated');
+                return redirect('/lecturers')
+                ->with([
+                    'name' => $name,
+                    'email' => $email,
+                    'course' => $course
+                ]);
+            }
+        }
     }
 
     /**
@@ -105,7 +90,9 @@ class LecturerController extends Controller
      */
     public function edit($id)
     {
-        dd('Lets edit');
+        $lecturer = User::find($id);
+        return view('admin.edit-lecturer')
+            ->with('lecturer', $lecturer);
     }
 
     /**
@@ -116,9 +103,20 @@ class LecturerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        dd('Lets update');
-    }
+    { 
+        $course = Course::where('title', $request['title']);
+        
+        if ($course->exists() && $course->first()->user_id != $id) {
+            $request->session()->flash('unsuccesful', $request['title'] . ' has being assigned to a lecturer');
+            return back();
+        } else {
+
+            (new LecturerCommand())->updateLecturer($request, $id);
+            $request->session()->flash('status', 'Lecturer successfully updated ');
+                return redirect('/lecturers');
+            }
+        }
+
 
     /**
      * Remove the specified resource from storage.
@@ -128,6 +126,9 @@ class LecturerController extends Controller
      */
     public function destroy($id)
     {
-        dd('Let delete');
+        $lecturer = User::find($id);
+        $lecturer->delete();
+        session()->flash('status', 'lecturer deleted sucessfully');
+        return back();
     }
 }

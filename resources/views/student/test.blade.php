@@ -4,7 +4,7 @@
 <div class="container-contact100" style="margin-top: 4%;">
     <div class="wrap-contact100">
         @if($questions->isEmpty())
-        <h4 class="mb-3" style="text-align: center; font-size: 35px;">Test Not Ready!! <br><span class="text-primary mt-5" style="font-size: 20px;">Contact Admins</span></h4>
+        <h4 class="mb-3" style="text-align: center; font-size: 35px;">Exam Questions Not Uploaded Yet!! <br><span class="text-primary mt-5" style="font-size: 20px;">Contact Admins For More Clarificaiton</span></h4>
         <div class="container-contact100-form-btn mt-5">
             <a href="/home">
                 <button class="contact100-form-btn">

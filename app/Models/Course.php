@@ -14,11 +14,16 @@ class Course extends Model
         'exam_duration',
     ];
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
     public function question()
     {
         return $this->hasMany(Question::class);
+    }
+    public function lecturer()
+    {
+        return $this->belongsTo(Lecturer::class);
     }
 }

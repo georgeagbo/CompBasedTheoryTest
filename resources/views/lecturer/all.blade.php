@@ -1,6 +1,11 @@
 @extends('layouts.app')
 @section('content')
 
+@if (session('status'))
+<div class="alert alert-success" role="alert">
+    {{ session('status') }}
+</div>
+@endif
 
 @if ($message = Session::get('lecturer'))
 <div class="row justify-content-center">
@@ -44,6 +49,7 @@
                             </tr>
                         </thead>
                         <tbody>
+                    
                             @foreach($lecturers as $lecturer)
                             <tr>
                                 <td>{{$lecturer->id ?? ''}}</td>

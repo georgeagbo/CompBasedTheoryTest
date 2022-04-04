@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\CommandClass\StudentCommand;
 use App\Models\User;
 use App\Models\Course;
 use App\Models\Student;
@@ -20,7 +21,7 @@ class StudentController extends Controller
 
         $students = User::Where('role', '0')->get();
         return view('student.all')
-        ->with('students', $students);
+            ->with('students', $students);
     }
 
     /**
@@ -41,31 +42,24 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        $name = $request['name'];
-        $email =  $request['email'];
-        $regNo =  $request['regNo'];
-        $password = $request['password'];
+        $student = (new StudentCommand())->addStudent($request);
 
-        $user = User::create([
-            'name' => $name,
-            'email' => $email,
-            'password' => Hash::make($password),
-            'role' => '0'
-        ]);
+        if ($student["success"] == true) {
 
-        Student::create([
-            'user_id' => $user->id,
-            'reg_no' => $regNo,
-        ]);
+            $name = $request['name'];
+            $email = $request['email'];
+            $regNo = $request['regNo'];
+            $password = $request['password'];
+            $students = User::Where('role', '0')->get();
+            $request->session()->flash('student', 'Student Created Succesfully');
 
-        $request->session()->flash('student', 'Student Created Succesfully');
-        $students = User::Where('role', '0')->get();
-        return view('student.all')
-        ->with('name', $name)
-            ->with('email', $email)
-            ->with('regNo', $regNo)
-            ->with('password', $password)
-            ->with('students',$students);
+            return view('student.all')
+                ->with('name', $name)
+                ->with('email', $email)
+                ->with('regNo', $regNo)
+                ->with('password', $password)
+                ->with('students', $students);
+        }
     }
 
     /**
@@ -87,7 +81,9 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        dd('here s');
+        $student = User::find($id);
+        return view('admin.edit-student')
+            ->with('student', $student);
     }
 
     /**
@@ -99,7 +95,22 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $studentCommand = (new StudentCommand())->updateStudent($request, $id);
+        if ($studentCommand['success'] == true) {
+            $name = $request['name'];
+            $email = $request['email'];
+            $password = $request['password'];
+            $regNo = $request['regNo'];
+
+            $request->session()->flash('status', 'Student information successfully updated');
+            return redirect('/students')
+                ->with([
+                    'name' => $name,
+                    'email' => $email,
+                    'password' => $password,
+                    'regNo' => $regNo
+                ]);
+        }
     }
 
     /**
@@ -110,6 +121,8 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        dd('here s');
+        $user = User::find($id);
+        $user->delete();
+        return back();
     }
 }
