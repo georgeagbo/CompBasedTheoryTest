@@ -15,7 +15,7 @@
         <div class="wrap-contact100">
             <div class="contact100-form validate-form" id="form">
                 <span class="contact100-form-title" style="color: steelBlue;">
-                    Test Time Out!!
+                    Exam Time Out!!
                 </span>
                 <div class="container-contact100-form-btn">
                     <a href="/students/{{auth()->user()->id}}/result">

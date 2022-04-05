@@ -58,7 +58,7 @@
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Exam Duration') }}</label>
                             <div class="col-md-6">
-                                <input id="exam_duration" type="text" class="form-control @error('exam_duration') is-invalid @enderror" name="exam_duration" value="{{ old('exam_duration') }}" required autocomplete="name" autofocus>
+                                <input id="exam_duration" type="number" class="form-control @error('exam_duration') is-invalid @enderror" name="exam_duration" value="{{ old('exam_duration') }}" required autocomplete="name" autofocus placeholder="E.g 90mins">
 
                                 @error('name')
                                 <span class="invalid-feedback" role="alert">

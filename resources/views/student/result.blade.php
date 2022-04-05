@@ -5,7 +5,7 @@
         <div class="wrap-contact100">
             <div>
                 <h1 class="text-center mb-3">Smart Gap Computer Institute</h1>
-                <h2 class="text-center mb-3">Student Summer Test Result</h2>
+                <h2 class="text-center mb-3">Student Summer Exam Result</h2>
             </div>
             <span class="contact100-form-title text-center mb-2">
                 Score!!

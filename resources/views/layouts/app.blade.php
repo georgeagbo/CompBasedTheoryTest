@@ -123,7 +123,7 @@
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Academics</a>
                                     <div class="dropdown-menu">
-                                        <a class="nav-item nav-link text-dark" href="/courses/create">Upload Course</a>
+                                        <a class="nav-item nav-link text-dark" href="/courses/create">Add Course</a>
                                         <a class="nav-item nav-link text-dark" href="/courses">View Courses</a>
                                     </div>
                                 </li>
@@ -138,7 +138,7 @@
                         @endif
                         @if(auth()->user()->role == '0')
                         <a class="nav-item nav-link" href="/students/{{auth()->user()->student->id}}/result">View Result</a>
-                        <a class="nav-item nav-link" href="/students/{{auth()->user()->student->id}}/select-course">Take a test</a>
+                        <a class="nav-item nav-link" href="/students/{{auth()->user()->student->id}}/select-course">Write Exam</a>
                         @endif
                     </div>
                 </div>

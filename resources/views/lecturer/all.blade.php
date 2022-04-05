@@ -49,10 +49,10 @@
                             </tr>
                         </thead>
                         <tbody>
-
+                            {{$i=null}}
                             @foreach($lecturers as $lecturer)
                             <tr>
-                                <td>{{$lecturer->id ?? ''}}</td>
+                                <td>{{$i+=1}}</td>
                                 <td>{{$lecturer->name ?? ''}}</td>
                                 <td>{{$lecturer->email ?? ''}}</td>
                                 <td>{{$lecturer->lecturer->course ?? ''}}</td>

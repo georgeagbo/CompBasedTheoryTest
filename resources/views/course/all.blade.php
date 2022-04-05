@@ -27,7 +27,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{$i=0}}
+                            {{$i=null}}
                             @foreach($courses as $course)
                             <tr>
                                 <td>{{$i+=1}}</td>
