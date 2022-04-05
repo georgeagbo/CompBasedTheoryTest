@@ -55,7 +55,7 @@
                                 <td>{{$lecturer->id ?? ''}}</td>
                                 <td>{{$lecturer->name ?? ''}}</td>
                                 <td>{{$lecturer->email ?? ''}}</td>
-                                <td>{{$lecturer->course->title ?? ''}}</td>
+                                <td>{{$lecturer->lecturer->course ?? ''}}</td>
                                 <td><a href="/lecturers/{{$lecturer->id}}/edit" class="btn btn-warning">Edit</a></td>
                                 <td>
                                     <form action="/lecturers/{{$lecturer->id}}" method="post">

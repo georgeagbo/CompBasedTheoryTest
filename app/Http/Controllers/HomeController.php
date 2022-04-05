@@ -67,9 +67,11 @@ class HomeController extends Controller
     {
         
         $currentQuestion = Question::find($question);
+        $courses = Course::all();
 
         return view('admin.edit-question')
-            ->with('currentQuestion', $currentQuestion);
+            ->with('currentQuestion', $currentQuestion)
+            ->with('courses', $courses);
     }
 
     public function update(Request $request, $id)

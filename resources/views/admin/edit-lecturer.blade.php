@@ -44,49 +44,49 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">Assign Course</label>
-                            <div class="col-md-3">
-                                <select class="form-control" id="sel1" name="title">
-                                    <option selected value="{{$lecturer->course->title ?? ''}}">{{$lecturer->course->title ?? ''}}</option>
-                                    <option value="Computer Appreciation">Computer Appreciation</option>
-                                    <option value="Computer Programming">Computer programming</option>
-                                    <option value="Graphics Design">Graphics Design</option>
-                                    <option value="Computer Maintenance">Computer Maintenance</option>
-                                </select>
+                            <div class="form-group row">
+                                <label for="password" class="col-md-4 col-form-label text-md-right">Assign Course</label>
+                                <div class="col-md-3">
+                                    <select class="form-control" id="sel1" name="title" required>
+                                        <option selected disabled value="">Select Course</option>
+                                        @foreach($courses as $course)
+                                        <option value="{{$course->title}}">{{$course->title}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">Assign Exam Duration</label>
-                            <div class="col-md-3">
-                                <select class="form-control" id="duration" name="exam_duration">
-                                    <option selected value="{{$lecturer->course->exam_duration ?? ''}}">{{$lecturer->course->exam_duration ?? ''}}</option>
-                                    <option value="15">15mins</option>
-                                    <option value="30">30mins</option>
-                                    <option value="45">45mins</option>
-                                    <option value="60">1hr</option>
-                                </select>
+                            <div class="form-group row">
+                                <label for="password" class="col-md-4 col-form-label text-md-right">Assign Exam Duration</label>
+                                <div class="col-md-3">
+                                    <select class="form-control" id="duration" name="exam_duration">
+                                        <option selected value="{{$lecturer->course->exam_duration ?? ''}}">{{$lecturer->course->exam_duration ?? ''}}</option>
+                                        <option value="15">15mins</option>
+                                        <option value="30">30mins</option>
+                                        <option value="45">45mins</option>
+                                        <option value="60">1hr</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-                                @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
+                            <div class="form-group row">
+                                <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                                <div class="col-md-6">
+                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                    @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn">
-                                    Create
-                                </button>
+                            <div class="form-group row mb-0">
+                                <div class="col-md-6 offset-md-4">
+                                    <button type="submit" class="btn">
+                                        Create
+                                    </button>
+                                </div>
                             </div>
-                        </div>
                     </form>
                 </div>
             </div>

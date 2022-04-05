@@ -108,6 +108,8 @@
                         <a class="nav-item nav-link text-dark" href="/students/create">Create Student</a>
                         <a class="nav-item nav-link text-dark" href="/lecturers">Lecturers</a>
                         <a class="nav-item nav-link text-dark" href="/students">Students</a>
+                        <a class="nav-item nav-link text-dark" href="/courses">Courses</a>
+                        <a class="nav-item nav-link text-dark" href="/courses/create">Upload Course</a>
                         <a class="nav-item nav-link" href="/home">Set Question</a>
 
                         @endif
@@ -116,7 +118,7 @@
                         @endif
                         @if(auth()->user()->role == '0')
                         <a class="nav-item nav-link" href="/students/{{auth()->user()->student->id}}/result">View Result</a>
-                        <a class="nav-item nav-link" href="/courses">Take a test</a>
+                        <a class="nav-item nav-link" href="/students/{{auth()->user()->student->id}}/select-course">Take a test</a>
                         @endif
                     </div>
                 </div>

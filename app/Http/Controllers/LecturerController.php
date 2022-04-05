@@ -30,7 +30,9 @@ class LecturerController extends Controller
      */
     public function create()
     {
-        return view('admin.add-lecturer');
+        $courses = Course::all();
+        return view('admin.add-lecturer')
+            ->with('courses', $courses);
     }
 
     /**
@@ -46,29 +48,30 @@ class LecturerController extends Controller
         $password = '';
 
 
-        $courses = Course::where('title', $request['title'])->first();
+        $courses = Lecturer::where('course', $request['title']);
 
-        if (!empty($courses)) {
+        if ($courses->exists()) {
             $request->session()->flash('unsuccesful', $request['title'] . ' has being assigned to a lecturer');
-            return view('admin.add-lecturer');
+            return back();
         } else {
+
             $lecturerCommand = (new LecturerCommand())->addLecturer($request);
-            $lecturers = User::where('role','1')->get();
+            $lecturers = User::where('role', '1')->get();
 
             if ($lecturerCommand['success'] = true) {
-
+                
                 $name = $request['name'];
                 $email = $request['email'];
                 $password = $request['password'];
 
                 $request->session()->flash('lecturer', 'Lecturer information successfully updated');
                 return view('lecturer.all')
-                ->with([
-                    'name' => $name,
-                    'email' => $email,
-                    'password' => $password,
-                    'lecturers' => $lecturers
-                ]);
+                    ->with([
+                        'name' => $name,
+                        'email' => $email,
+                        'password' => $password,
+                        'lecturers' => $lecturers
+                    ]);
             }
         }
     }
@@ -93,8 +96,12 @@ class LecturerController extends Controller
     public function edit($id)
     {
         $lecturer = User::find($id);
+        $courses = Course::all();
+
+
         return view('admin.edit-lecturer')
-            ->with('lecturer', $lecturer);
+            ->with('lecturer', $lecturer)
+            ->with('courses', $courses);
     }
 
     /**
@@ -105,9 +112,9 @@ class LecturerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    { 
+    {
         $course = Course::where('title', $request['title']);
-        
+
         if ($course->exists() && $course->first()->user_id != $id) {
             $request->session()->flash('unsuccesful', $request['title'] . ' has being assigned to a lecturer');
             return back();
@@ -115,9 +122,9 @@ class LecturerController extends Controller
 
             (new LecturerCommand())->updateLecturer($request, $id);
             $request->session()->flash('status', 'Lecturer successfully updated ');
-                return redirect('/lecturers');
-            }
+            return redirect('/lecturers');
         }
+    }
 
 
     /**
