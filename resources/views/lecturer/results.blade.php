@@ -34,7 +34,7 @@
                 <tbody>
                     @foreach($results as $result)
                     <tr>
-                        <td>{{$result->id} ?? ''}</td>
+                        <td>{{$result->id ?? ''}}</td>
                         <td>{{$result->reg_no ?? ''}}</td>
                         <td>{{$result->name ?? ''}}</td>
                         <td>{{$result->score ?? ''}}</td>

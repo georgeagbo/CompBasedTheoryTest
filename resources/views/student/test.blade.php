@@ -17,9 +17,8 @@
         </div>
         @else
         @if(empty(auth()->user()->result))
-        <form class="contact100-form validate-form" id="form">
             @csrf
-            <a id="submitExam" href="javascript::void[0]" style="font-size: 18px; margin-right: 50px;border-radius: 4px; padding: 4px 8px 4px 8px; color: #fff; background-color: #01131C;">Submit And Go!</a>
+            <button id="submitExam" onclick="" style="font-size: 18px; margin-right: 50px;border-radius: 4px; padding: 4px 8px 4px 8px; color: #fff; background-color: #01131C;">Submit And Go!</button>
 
             <span class="contact100-form-title" style="position: relative; right: 0px;" id="timer">
                 0 1 : 1 0
@@ -30,7 +29,7 @@
 
             <label class="label-input100" for="message">Question No</label>
             <div class="wrap-input100 validate-input">
-                <textarea id="question" class="input100" name="question" data="{{$questions}}" readonly></textarea>
+                <textarea id="question" class="input100" name="question" readonly></textarea>
                 <span class="focus-input100"></span>
             </div>
 
@@ -44,7 +43,6 @@
                 <span class="focus-input100"></span>
             </div>
             <div id="question_answer"></div>
-        </form>
         <div class="row col-md-6 m-auto text-center">
             <button class="bg-light text-primary p-2 mr-5" id="previous">Previous</button>
             <button class="bg-light text-primary p-2" id="next">Next</button>
@@ -68,72 +66,60 @@
 </div>
 
 <script>
+    let data = [];
+    const questions = JSON.parse('{!! $questions !!}'.replace(/]"/g, ']').replace(/"\[/g, '[').replace('\\', ''));
+    const questionView = document.getElementById('question');
+    const answerView = document.getElementById('answer')
+    currentEntry = 0;
+    questionView.value = questions[currentEntry].question
+    console.log(questions);
+
     document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('next').addEventListener('click', nextQuestion)
         document.getElementById('previous').addEventListener('click', previousQuestion)
-
-        let questionView = document.getElementById('question');
-        let answerView = document.getElementById('answer')
-
-        var questions = document.getElementById('question').getAttribute('data');
-        var questionArray = JSON.parse(questions)
-        questionView.value = questionArray[0].question
-
-        let i = 0;
-        let data = [];
-
-        function nextQuestion() {
-            if (i < questionArray.length - 1) {
-                i++;
-                if (data[i] != null) {
-                    answerView.value = data[i].answer;
-                } else {
-                    let answerValue = answerView.value
-                    if (questionArray[i].id != null) {
-                        var dataObject = {
-                            question_id: questionArray[i].id,
-                            answer: `${answerValue}`
-                        }
-                    }
-                }
-                showQuestionAndAnswer(questionArray[i], dataObject);
-                updateData(dataObject);
-
-            }
-
-        }
-
-        function previousQuestion() {
-            if (i >= 1) {
-                i--;
-                questionView.value = questionArray[i].question
-                answerView.value = data[i].answer
-
-                let newAnswer = answerview.value;
-                data[i] = {
-                    question_id: 100,
-                    answer: `${newAnswer}`
-                }
-            }
-        }
-
-        function showQuestionAndAnswer(questionArray, obj) {
-            questionView.value = questionArray.question;
-            answerView.value = obj.answer;
-        }
-
-        function updateData(obj) {
-            data.push(obj)
-            answerView.value = null;
-        }
-
-        const submit = document.getElementById('submitExam');
-        submit.addEventListener('click', function() {
-            submitExam(data);
-        });
+        document.getElementById('submitExam').addEventListener('click', submitExam);
     });
 
-    function submitExam(data) {
+    function nextQuestion() {
+        console.log(currentEntry)
+        if (currentEntry < questions.length - 1) {
+
+            data[currentEntry] = {
+                question: questions[currentEntry],
+                answer: answerView.value
+            }
+
+            currentEntry++;
+            showQuestionAndAnswer(questions[currentEntry].question, data[currentEntry]?.answer ?? '');
+        }
+        console.log(data)
+
+    }
+
+    function previousQuestion() {
+        console.log(currentEntry)
+
+        if (currentEntry > 0) {
+            data[currentEntry] = {
+                question: questions[currentEntry],
+                answer: answerView.value
+            }
+
+            currentEntry--;
+            showQuestionAndAnswer(questions[currentEntry].question, data[currentEntry]?.answer ?? '');
+        }
+        console.log(data)
+    }
+
+
+    function showQuestionAndAnswer(question, answer) {
+        questionView.value = question;
+        answerView.value = answer;
+    }
+
+
+
+    function submitExam() {
         $.ajax({
             type: "POST",
             data: {
@@ -141,9 +127,9 @@
                 "data": data,
             },
             url: "/store/answer",
-            success: function(data) {
-                window.location.href = '/test-submitted'
-                //console.log(data);
+            success: function(response) {
+                //window.location.href = '/test-submitted'
+                console.log(response.data);
 
             }
         });
