@@ -40,7 +40,7 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th scope="col">ID</th>
+                                <th scope="col">S/N</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Reg No</th>
@@ -50,9 +50,10 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {{$i=null}}
                             @forelse($students as $student)
                             <tr>
-                                <td>{{$student->id ?? ''}}</td>
+                                <td>{{$i+=1}}</td>
                                 <td>{{$student->name ?? ''}}</td>
                                 <td>{{$student->email ?? ''}}</td>
                                 <td>{{$student->student->reg_no ?? ''}}</td>

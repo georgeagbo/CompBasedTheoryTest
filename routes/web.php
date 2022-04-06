@@ -27,9 +27,9 @@ Route::group(['excluded_middleware' => ['csrf']], function () {
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
-
-    Route::resource('/students', 'App\Http\Controllers\StudentController');
     Route::resource('/lecturers', 'App\Http\Controllers\LecturerController');
+    Route::resource('/students', 'App\Http\Controllers\StudentController');
+    Route::resource('/courses', 'App\Http\Controllers\CourseController');
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::post('/store', [App\Http\Controllers\HomeController::class, 'store'])->name('store');
@@ -37,9 +37,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/question/delete/{id}', [App\Http\Controllers\HomeController::class, 'delete'])->name('delete');
     Route::post('/update/question/{id}', 'App\Http\Controllers\HomeController@update');
 
-   
     Route::post('/students/{id}/exam', [App\Http\Controllers\QuestionController::class, 'questions'])->name('questions');
-    Route::get('/courses', [App\Http\Controllers\QuestionController::class, 'course'])->name('course');
+    Route::get('/students/{id}/select-course', [App\Http\Controllers\QuestionController::class, 'course'])->name('course');
     Route::get('/students/{id}/result', [App\Http\Controllers\ResultController::class, 'studentResult'])->name('result');
     Route::get('/test-timeout', [App\Http\Controllers\TestController::class, 'timeOut'])->name('timeout');
     Route::resource('/results', App\Http\Controllers\ResultController::class);

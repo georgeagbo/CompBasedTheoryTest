@@ -9,9 +9,10 @@ let countDown = setInterval(function () {
   displayTime(timeSecond)
   if (timeSecond == 10) {
     timer.style.color = 'red'
-  } else if (timeSecond == 0) {
-    clearInterval(countDown)
-    submitExam(data)
+  } else if (timeSecond <= 0) {
+    window.location.href = '/test-submitted'
+   // clearInterval(countDown)
+    //submitExam(data)
   }
 }, 1000)
 

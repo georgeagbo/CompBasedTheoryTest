@@ -80,15 +80,13 @@
                                         </div>
                                     </div>
                                 </div>
-
-
                                 <div class="container">
                                     <div id="iq">
                                         <div class="row mb-5">
                                             <label for="password" class="col-md-4 col-form-label text-md-right">Course</label>
                                             <div class="col-md-8">
-                                                <select class="form-control" id="course" name="course">
-                                                    <option selected disabled>Select Course</option>
+                                                <select class="form-control" id="course" name="course" required>
+                                                    <option selected disabled value="">Select Course</option>
                                                     @foreach($courses as $course)
                                                     <option value="{{$course->title}}">{{$course->title}}</option>
                                                     @endforeach

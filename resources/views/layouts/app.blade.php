@@ -104,19 +104,41 @@
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
                         @if(auth()->user()->role == '2')
-                        <a class="nav-item nav-link active text-dark" href="/lecturers/create">Create Lecturer <span class="sr-only">(current)</span></a>
-                        <a class="nav-item nav-link text-dark" href="/students/create">Create Student</a>
-                        <a class="nav-item nav-link text-dark" href="/lecturers">Lecturers</a>
-                        <a class="nav-item nav-link text-dark" href="/students">Students</a>
-                        <a class="nav-item nav-link" href="/home">Set Question</a>
-
+                        <nav class="navbar navbar-expand-sm">
+                            <ul class="navbar-nav">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Create users</a>
+                                    <div class="dropdown-menu">
+                                        <a class="nav-item nav-link active text-primary" href="/lecturers/create">Create Lecturer <span class="sr-only">(current)</span></a>
+                                        <a class="nav-item nav-link text-dark" href="/students/create">Create Student</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Users</a>
+                                    <div class="dropdown-menu">
+                                        <a class="nav-item nav-link text-dark" href="/lecturers">Lecturers</a>
+                                        <a class="nav-item nav-link text-dark" href="/students">Students</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Academics</a>
+                                    <div class="dropdown-menu">
+                                        <a class="nav-item nav-link text-dark" href="/courses/create">Add Course</a>
+                                        <a class="nav-item nav-link text-dark" href="/courses">View Courses</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-item nav-link" href="/home">Set Question</a>
+                                </li>
+                            </ul>
+                        </nav>
                         @endif
                         @if(auth()->user()->role == '1')
                         <a class="nav-item nav-link" href="/results">View Results</a>
                         @endif
                         @if(auth()->user()->role == '0')
                         <a class="nav-item nav-link" href="/students/{{auth()->user()->student->id}}/result">View Result</a>
-                        <a class="nav-item nav-link" href="/courses">Take a test</a>
+                        <a class="nav-item nav-link" href="/students/{{auth()->user()->student->id}}/select-course">Write Exam</a>
                         @endif
                     </div>
                 </div>

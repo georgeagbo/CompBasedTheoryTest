@@ -5,6 +5,7 @@ namespace App\CommandClass;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Course;
+use App\Models\Lecturer;
 use Illuminate\Support\Facades\Hash;
 
 class LecturerCommand
@@ -12,22 +13,22 @@ class LecturerCommand
     public function addLecturer(Request $request)
     {
         $user = new User();
-        $lecturerCourse = new Course();
+        $lecturer = new Lecturer();
         $lecturerData = $request->all();
-        $this->uploadLecturer($user, $lecturerCourse, $lecturerData);
+        $this->uploadLecturer($user,$lecturer,$lecturerData);
         return ['success' => true, 'data' => $lecturerData];
     }
 
     public function updateLecturer(Request $request, $id)
     {
         $user = User::find($id);
-        $lecturerCourse = Course::where('user_id', $user->id)->first();
+        $lecturer = Lecturer::find($id);
         $lecturerData = $request->all();
-        $this->uploadLecturer($user, $lecturerCourse, $lecturerData);
+        $this->uploadLecturer($user,$lecturer,$lecturerData);
         return ['success' => true, 'data' => $lecturerData];
     }
 
-    public function uploadLecturer($user, $lecturerCourse, array $lecturerData)
+    public function uploadLecturer($user, $lecturer, array $lecturerData)
     {
         $user->name = $lecturerData['name'];
         $user->email = $lecturerData['email'];
@@ -35,9 +36,9 @@ class LecturerCommand
         $user->role = '1';
         $user->save();
 
-        $lecturerCourse->user_id = $user->id;
-        $lecturerCourse->title = $lecturerData['title'];
-        $lecturerCourse->exam_duration = intval($lecturerData['exam_duration']);
-        $lecturerCourse->save();
+        $lecturer->user_id = $user->id;
+        $lecturer->course = $lecturerData['title'];
+        $lecturer->save();
+
     }
 }

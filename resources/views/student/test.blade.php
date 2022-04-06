@@ -49,7 +49,7 @@
         </div>
 
         @else
-        <h1 style="margin-left:10%; color: red; margin-bottom: 30px;">You have taken your test!!</h1>
+        <h1 style="margin-left:10%; color: red; margin-bottom: 30px;">You have taken your Exam!!</h1>
         <div class="container-contact100-form-btn">
             <a href="/students/{{auth()->user()->id}}/result">
                 <button class="contact100-form-btn">

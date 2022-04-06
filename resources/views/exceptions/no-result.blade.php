@@ -7,7 +7,7 @@
             <h1 class="text-center mb-3 text-danger">You must write a test to have a result</h1>
         </div>
         <div class="container-contact100-form-btn mt-3">
-            <a href="/courses">
+            <a href="/students/{{auth()->user()->student->id}}/select-course">
                 <button class="contact100-form-btn">
                     <span>
                         Start Test
