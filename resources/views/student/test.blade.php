@@ -128,8 +128,8 @@
             },
             url: "/store/answer",
             success: function(response) {
-                //window.location.href = '/test-submitted'
-                console.log(response.data);
+                window.location.href = '/test-submitted'
+                //console.log(response.data);
 
             }
         });
