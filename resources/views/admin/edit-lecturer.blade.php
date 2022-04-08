@@ -44,31 +44,16 @@
                         </div>
 
                         <div class="form-group row">
-                            <div class="form-group row">
-                                <label for="password" class="col-md-4 col-form-label text-md-right">Assign Course</label>
-                                <div class="col-md-3">
-                                    <select class="form-control" id="sel1" name="title" required>
-                                        <option selected disabled value="">Select Course</option>
-                                        @foreach($courses as $course)
-                                        <option value="{{$course->title}}">{{$course->title}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                            <label for="password" class="col-md-4 col-form-label text-md-right">Assign Course</label>
+                            <div class="col-md-3">
+                                <select class="form-control" id="sel1" name="title" required>
+                                    <option selected disabled value="">Select Course</option>
+                                    @foreach($courses as $course)
+                                    <option value="{{$course->title}}">{{$course->title}}</option>
+                                    @endforeach
+                                </select>
                             </div>
-
-                            <div class="form-group row">
-                                <label for="password" class="col-md-4 col-form-label text-md-right">Assign Exam Duration</label>
-                                <div class="col-md-3">
-                                    <select class="form-control" id="duration" name="exam_duration">
-                                        <option selected value="{{$lecturer->course->exam_duration ?? ''}}">{{$lecturer->course->exam_duration ?? ''}}</option>
-                                        <option value="15">15mins</option>
-                                        <option value="30">30mins</option>
-                                        <option value="45">45mins</option>
-                                        <option value="60">1hr</option>
-                                    </select>
-                                </div>
-                            </div>
-
+</div>
                             <div class="form-group row">
                                 <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
                                 <div class="col-md-6">
