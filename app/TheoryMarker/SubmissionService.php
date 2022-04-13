@@ -41,7 +41,7 @@ class SubmissionService
         Result::create([
             'user_id' => auth()->user()->id,
             'name' => auth()->user()->name,
-            'reg_no' => auth()->user()->reg_no,
+            'reg_no' => auth()->user()->student->reg_no,
             'score' => 0
         ]);
 

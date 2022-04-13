@@ -1,13 +1,12 @@
 @extends('layouts.app')
 @section('content')
 
-@if(auth()->user()->role == '1')
+@if(auth()->user()->role == '2')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-lg-4">
             <div class="card">
                 <div class="card-header">{{ __('Uploaded Questions') }}</div>
-
                 <div class="card-body">
                     @if (session('status'))
                     <div class="alert alert-success" role="alert">
@@ -17,13 +16,15 @@
 
                     <div class="grid">
                         <div class="row">
-                            <div class='col-md-8'>Questions</div>
+                            <div class='col-md-4'>Course</div>
+                            <div class='col-md-4'>Questions</div>
                             <div class='col-md-4'>Actions</div>
                         </div>
                         @foreach($questions as $question)
                         <div class="row border border-bottom-0 border-left-0 border-right-0 pb-1 pt-1">
-                            <div class='col-md-7'>{{$question->question}}</div>
-                            <div class='col-xs-2'><a href="/edit/question/{{$question->id}}" class="btn btn-light btn-sm">Edit</a></div>
+                            <div class='col-md-4'>{{$question->course?? ''}}</div>
+                            <div class='col-md-4'>{{$question->question}}</div>
+                            <div class='col-xs-2'><a href="/edit/question/{{$question->id}}" class="btn btn-warning btn-sm mr-2">Edit</a></div>
                             <div class='col-xs-2'>
                                 <form action="/question/delete/{{$question->id}}" method="post">
                                     @csrf
@@ -45,15 +46,14 @@
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
                 <div class="card-body">
-
-
                     <div class="container-contact100" style="margin-top: -35px;">
                         <div class="wrap-contact100">
                             <form class="contact100-form validate-form" action="/store" method="post">
                                 @csrf
-                                <span class="contact100-form-title">
+                                <span class="contact100-form-title mb-0">
                                     Upload Questions
                                 </span>
+                                <h6 class="mb-5 text-primary">Note: A lecturer must be assigned a course before questions for the course can be set</h6>
                                 @if (session('errors'))
                                 <div class="alert alert-danger" role="alert">
                                     {{session('errors')->first('error')}}
@@ -80,10 +80,19 @@
                                         </div>
                                     </div>
                                 </div>
-
-
                                 <div class="container">
                                     <div id="iq">
+                                        <div class="row mb-5">
+                                            <label for="password" class="col-md-4 col-form-label text-md-right">Course</label>
+                                            <div class="col-md-8">
+                                                <select class="form-control" id="course" name="course" required>
+                                                    <option selected disabled value="">Select Course</option>
+                                                    @foreach($courses as $course)
+                                                    <option value="{{$course->title}}">{{$course->title}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
                                         <label class="label-input100" for="message">Enter Question</label>
                                         <div class="row">
                                             <div class="wrap-input100 validate-input">

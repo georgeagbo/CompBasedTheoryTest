@@ -16,6 +16,7 @@ class CreateSubmissionsTable extends Migration
         Schema::create('submissions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('course_id')->nullable();
             $table->foreignId('question_id');
             $table->longText('answer');
             $table->decimal('marks')->nullable;
@@ -24,6 +25,11 @@ class CreateSubmissionsTable extends Migration
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
+                ->onDelete('cascade');
+
+            $table->foreign('course_id')
+            ->references('id')
+                ->on('courses')
                 ->onDelete('cascade');
         });
     }

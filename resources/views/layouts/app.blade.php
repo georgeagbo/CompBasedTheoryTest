@@ -56,43 +56,7 @@
                 <!-- <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a> -->
-                @auth()
-                @if(auth()->user()->role =='2')
-                <a class="navbar-brand" href="/">
-                    <h5 class="text-dark">Admin</h5>
-                </a>
-                <a class="navbar-brand" href="/lecturers">
-                    <h6 class="text-info">Create Lecturer</h6>
-                </a>
-                @endif
 
-                @if(auth()->user()->role =='1')
-                <a class="navbar-brand" href="/">
-                    <h5 class="text-dark">Lecturer</h5>
-                </a>
-                <a class="navbar-brand" href="/students">
-                    <h6 class="text-info">Create Student</h6>
-                </a>
-                <a class="navbar-brand" href="/home">
-                    <h6 class="text-info">Set Questions</h6>
-                </a>
-                <a class="navbar-brand" href="/results">
-                    <h6 class="text-info">View Results</h6>
-                </a>
-                @endif
-
-                @if(auth()->user()->role =='0')
-                <a class="navbar-brand" href="/">
-                    <h5 class="text-dark">Student</h5>
-                </a>
-                <a class="navbar-brand" href="/students/{{auth()->user()->id}}/result">
-                    <h6 class="text-info">View Result</h6>
-                </a>
-                <a class="navbar-brand" href="/students/{{auth()->user()->id}}/test">
-                    <h6 class="text-info">Take A Test</h6>
-                </a>
-                @endif
-                @endauth
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -136,6 +100,49 @@
         </nav>
 
         <main class="py-4">
+            <nav class="navbar navbar-expand-lg">
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        @if(auth()->user()->role == '2')
+                        <nav class="navbar navbar-expand-sm">
+                            <ul class="navbar-nav">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Create users</a>
+                                    <div class="dropdown-menu">
+                                        <a class="nav-item nav-link active text-primary" href="/lecturers/create">Create Lecturer <span class="sr-only">(current)</span></a>
+                                        <a class="nav-item nav-link text-dark" href="/students/create">Create Student</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Users</a>
+                                    <div class="dropdown-menu">
+                                        <a class="nav-item nav-link text-dark" href="/lecturers">Lecturers</a>
+                                        <a class="nav-item nav-link text-dark" href="/students">Students</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Academics</a>
+                                    <div class="dropdown-menu">
+                                        <a class="nav-item nav-link text-dark" href="/courses/create">Add Course</a>
+                                        <a class="nav-item nav-link text-dark" href="/courses">View Courses</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-item nav-link" href="/home">Set Question</a>
+                                </li>
+                            </ul>
+                        </nav>
+                        @endif
+                        @if(auth()->user()->role == '1')
+                        <a class="nav-item nav-link" href="/results">View Results</a>
+                        @endif
+                        @if(auth()->user()->role == '0')
+                        <a class="nav-item nav-link" href="/students/{{auth()->user()->student->id}}/result">View Result</a>
+                        <a class="nav-item nav-link" href="/students/{{auth()->user()->student->id}}/select-course">Write Exam</a>
+                        @endif
+                    </div>
+                </div>
+            </nav>
             @yield('content')
         </main>
     </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -13,15 +14,30 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
 
-        $questions = Question::select('id', 'question')->paginate(1);
-        $currentPage = $questions->currentPage();
-    
+    public function course()
+    {
+        $courses = Course::all();
+        return view('select-course')
+        ->with('courses',$courses);
+    }
+
+    public function questions(Request $request)
+    {    $title = '';
+        $questions = '';
+        $examDuration = '';
+        
+        $title = $request['title'];
+        $course = Course::where('title',$request['title'])->first();
+        $examDuration = $course->exam_duration;
+        
+        $questions = Question::where('course', $title)->get();
+
         return view('student.test')
             ->with('questions', $questions)
-            ->with('currentPage', $currentPage);
+            ->with('title',$title)
+            ->with('examDuration',$examDuration);
+            //->with('currentPage', $currentPage);
     }
 
     /**

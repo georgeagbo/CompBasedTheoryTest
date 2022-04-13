@@ -14,4 +14,9 @@ class Result extends Model
         'reg_no',
         'score',
     ];
+
+    public function result()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
