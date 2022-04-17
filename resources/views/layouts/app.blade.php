@@ -137,7 +137,7 @@
                         <a class="nav-item nav-link" href="/results">View Results</a>
                         @endif
                         @if(auth()->user()->role == '0')
-                        <a class="nav-item nav-link" href="/students/{{auth()->user()->student->id}}/result">View Result</a>
+                        <a class="nav-item nav-link" href="/students/{{auth()->user()->student->id}}/course">View Result</a>
                         <a class="nav-item nav-link" href="/students/{{auth()->user()->student->id}}/select-course">Write Exam</a>
                         @endif
                     </div>

@@ -49,9 +49,20 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="container">
                                     <div id="iq">
+                                        <div class="row mb-5">
+                                            <label for="password" class="col-md-4 col-form-label text-md-right">Course</label>
+                                            <div class="col-md-8">
+                                                <select class="form-control" id="course" name="course">
+                                                    <option selected value="{{$currentQuestion->course}}">{{$currentQuestion->course ?? ''}}</option>
+                                                    @foreach($courses as $course)
+                                                    <option value="{{$course->title}}">{{$course->title}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
                                         <label class="label-input100" for="message">Enter Question</label>
                                         <div>
                                             <div>
@@ -66,13 +77,13 @@
                                             <div><label class="label-input100" for="answer">Answers*</label></div>
                                         </div>
                                         <?php
-                                                $answers = $currentQuestion->answers;
-                                                $json_answers = json_decode($answers);
-                                                ?>
-                                                @foreach($json_answers as $key => $answer)
+                                        $answers = $currentQuestion->answers;
+                                        $json_answers = json_decode($answers);
+                                        ?>
+                                        @foreach($json_answers as $key => $answer)
                                         <div class="row">
                                             <div>
-                                               
+
                                                 <div class="row" id="row_{{$key}}">
                                                     <div class="col-md-9">
 

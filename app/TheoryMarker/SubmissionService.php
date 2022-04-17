@@ -12,7 +12,7 @@ use Doctrine\Inflector\InflectorFactory;
 
 class SubmissionService
 {
-    public function markQuestion(int $questionId, string $answer): array
+    public function markQuestion(int $questionId, string $answer, string $title): array
     {
         //get question
         $question = Question::find($questionId);
@@ -42,6 +42,7 @@ class SubmissionService
             'user_id' => auth()->user()->id,
             'name' => auth()->user()->name,
             'reg_no' => auth()->user()->student->reg_no,
+            'course_title' => $title,
             'score' => 0
         ]);
 

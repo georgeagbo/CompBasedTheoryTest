@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\Result;
 use App\Models\Submission;
 use App\Models\User;
@@ -22,8 +23,14 @@ class ResultController extends Controller
             ->with('results', $results);
     }
 
-    public function studentResult()
-    {
+    public function selectCourseForResult(){
+        $courses = Course::all();
+        return view('course-result')
+        ->with('courses',$courses);
+    }
+
+    public function studentResult(Request $request)
+    { 
         $result = '';
         $response = Gate::inspect('seeResult', User::class);
 

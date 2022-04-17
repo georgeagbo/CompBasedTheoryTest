@@ -36,14 +36,14 @@ class SubmissionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   $title = $request->title;
         $answers =  $request->all();
 
         $totalMarks = 0;
 
         foreach ($answers['data'] as $key => $answer) {
             //return $answer;
-            $marksObtained = (new SubmissionService)->markQuestion($answer['question']['id'], $answer['answer']);
+            $marksObtained = (new SubmissionService)->markQuestion($answer['question']['id'], $answer['answer'], $title);
 
             $totalMarks += $marksObtained;
         }
