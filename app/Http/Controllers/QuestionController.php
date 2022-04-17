@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\Question;
+use App\Models\Result;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -23,10 +24,12 @@ class QuestionController extends Controller
     }
 
     public function questions(Request $request)
-    {    $title = '';
-        $questions = '';
-        $examDuration = '';
-        
+    {  
+        //$result = Result::where('user_id', auth()->user()->id)
+    //     ->where('course_title', $request['title'])
+    //     ->where('exam_status','0')->get();
+    //     dd($result);
+       
         $title = $request['title'];
         $course = Course::where('title',$request['title'])->first();
         $examDuration = $course->exam_duration;
