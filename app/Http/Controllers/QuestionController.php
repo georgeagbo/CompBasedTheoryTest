@@ -29,8 +29,17 @@ class QuestionController extends Controller
     //     ->where('course_title', $request['title'])
     //     ->where('exam_status','0')->get();
     //     dd($result);
-       
+     
         $title = $request['title'];
+
+        $courseResult = Result::where('user_id',auth()->user()->id)
+        ->where('course_title',$title)->get();
+    //    if (!$courseResult->isEmpty()) {
+    //        dd('Has Result');
+    //    }
+    //    else{
+    //        dd('No result');
+    //    }
         $course = Course::where('title',$request['title'])->first();
         $examDuration = $course->exam_duration;
         
@@ -39,7 +48,8 @@ class QuestionController extends Controller
         return view('student.test')
             ->with('questions', $questions)
             ->with('title',$title)
-            ->with('examDuration',$examDuration);
+            ->with('examDuration',$examDuration)
+            ->with('courseResult', $courseResult);
             //->with('currentPage', $currentPage);
     }
 

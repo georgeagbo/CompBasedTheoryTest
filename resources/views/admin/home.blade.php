@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 
-@if(auth()->user()->role == '2')
+@if(auth()->user()->role == '1')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-lg-4">
@@ -53,7 +53,7 @@
                                 <span class="contact100-form-title mb-0">
                                     Upload Questions
                                 </span>
-                                <h6 class="mb-5 text-primary">Note: A lecturer must be assigned a course before questions for the course can be set</h6>
+                                <!-- <h6 class="mb-5 text-primary">Note: A lecturer must be assigned a course before questions for the course can be set</h6> -->
                                 @if (session('errors'))
                                 <div class="alert alert-danger" role="alert">
                                     {{session('errors')->first('error')}}

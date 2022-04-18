@@ -32,13 +32,21 @@ class ResultController extends Controller
     public function studentResult(Request $request)
     { 
         $result = '';
-        $response = Gate::inspect('seeResult', User::class);
-
-        if ($response->denied()) {
-            return view('exceptions.no-result');
-        }
-
-        $result = Result::where('user_id', auth()->user()->id)->first();
+       
+        $courseResult = Result::where('user_id',auth()->user()->id)
+        ->where('course_title',$request['title'])->get();
+if (auth()->user()->result) {
+  
+    if ($courseResult->isEmpty()) {
+        return view('exceptions.no-result'); 
+       
+    }
+    $result = Result::where('user_id', auth()->user()->id)
+    ->where('course_title',$request['title'])->first();
+}  
+else{
+    return view('exceptions.no-result');
+}    
         return view('student.result')
             ->with('result', $result);
     }

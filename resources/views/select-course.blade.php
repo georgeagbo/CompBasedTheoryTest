@@ -25,7 +25,7 @@
                         </div>
 
                         <div class="container-contact100-form-btn">
-                            <a href="/students/{{auth()->user()->id}}/result">
+                            <a href="/students/{{auth()->user()->id}}/exam">
                                 <button class="contact100-form-btn" id="submit" value="submit" type="submit">
                                     <span>
                                         Start Exam

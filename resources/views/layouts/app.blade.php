@@ -127,14 +127,14 @@
                                         <a class="nav-item nav-link text-dark" href="/courses">View Courses</a>
                                     </div>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-item nav-link" href="/home">Set Question</a>
-                                </li>
+                              
                             </ul>
                         </nav>
                         @endif
                         @if(auth()->user()->role == '1')
                         <a class="nav-item nav-link" href="/results">View Results</a>
+                                    <a class="nav-item nav-link" href="/home">Set Question</a>
+               
                         @endif
                         @if(auth()->user()->role == '0')
                         <a class="nav-item nav-link" href="/students/{{auth()->user()->student->id}}/course">View Result</a>

@@ -15,7 +15,7 @@
             </a>
         </div>
         @else
-        @if(empty(auth()->user()->result))
+        @if($courseResult->isEmpty())
         @csrf
         <button id="submitExam" onclick="" style="font-size: 18px; margin-right: 50px;border-radius: 4px; padding: 4px 8px 4px 8px; color: #fff; background-color: #01131C;">Submit And Go!</button>
 
@@ -50,7 +50,7 @@
         @else
         <h1 style="margin-left:10%; color: red; margin-bottom: 30px;">You have taken your Exam!!</h1>
         <div class="container-contact100-form-btn">
-            <a href="/students/{{auth()->user()->id}}/result">
+            <a href="/students/{{auth()->user()->id}}/course">
                 <button class="contact100-form-btn">
                     <span>
                         Check Result
@@ -129,8 +129,8 @@
             },
             url: "/store/answer",
             success: function(response) {
-                window.location.href = '/test-submitted'
-                //console.log(response.data);
+                //window.location.href = '/test-submitted'
+                console.log(response.data);
 
             }
         });

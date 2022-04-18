@@ -10,6 +10,7 @@ class Result extends Model
     use HasFactory;
     protected $fillable = [
         'user_id',
+        'course_title',
         'name',
         'reg_no',
         'score',

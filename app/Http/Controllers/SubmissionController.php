@@ -47,8 +47,8 @@ class SubmissionController extends Controller
 
             $totalMarks += $marksObtained;
         }
-
-        return $totalMarks;
+        return $title;
+       // return $totalMarks;
     }
 
     /**

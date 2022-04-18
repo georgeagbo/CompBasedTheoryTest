@@ -8,7 +8,7 @@
                    Exam Completed!!
                 </span>
                 <div class="container-contact100-form-btn">
-                    <a href="/students/{{auth()->user()->id}}/result">
+                    <a href="/students/{{auth()->user()->id}}/course">
                         <button class="contact100-form-btn" id="submit">
                             <span>
                                 Check Result

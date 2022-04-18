@@ -46,7 +46,8 @@ class SubmissionService
             'score' => 0
         ]);
 
-        $result = Result::where('user_id', auth()->user()->id)->first();
+        $result = Result::where('user_id', auth()->user()->id)
+        ->where('course_title', $title)->first();
         $result->score += $marksObtained;
         $result->save();
 
